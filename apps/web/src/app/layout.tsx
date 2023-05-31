@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Roboto } from "next/font/google";
 import { Header } from "@/components/Header";
+
 
 const roboto = Roboto({ 
   subsets: ["latin"],
@@ -20,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={`text-gray-200 ${roboto.className}`}>
+      <body className={`text-gray-200 ${roboto.className} bg-[#121214]`}>
         <Header />
         {children}
       </body>

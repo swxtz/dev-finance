@@ -12,7 +12,7 @@ export default function Home() {
         <Link href="#" className="w-[294px] h-12 bg-green-700 text-gray-200 text-base font-semibold flex items-center justify-center rounded-md" >
           Comece agora
         </Link>
-        <Link href="#" className="w-[294px] h-12 bg-slate-800 text-gray-200 text-base font-semibold flex items-center justify-center rounded-md gap-2" >
+        <Link href="/signin" className="w-[294px] h-12 bg-slate-800 text-gray-200 text-base font-semibold flex items-center justify-center rounded-md gap-2" >
           Entre com a sua conta
           <LogIn />  
         </Link>
