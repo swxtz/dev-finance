@@ -3,6 +3,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Roboto } from "next/font/google";
 import { Header } from "@/components/Header";
+import { Analytics } from "@vercel/analytics/react";
 
 
 const roboto = Roboto({ 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`text-gray-200 ${roboto.className} bg-[#121214]`}>
         <Header />
         {children}
+        <Analytics />
       </body>
     </html>
   );
