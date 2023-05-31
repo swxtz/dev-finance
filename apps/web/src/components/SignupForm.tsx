@@ -1,12 +1,12 @@
 "use client";
 
 import { Mail, Lock } from "lucide-react";
-import Link from "next/link";
 import { FormEvent } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import z from "zod";
+import { toast, ToastContainer } from "react-toastify";
+import Link from "next/link";
+import { z } from "zod";
 
-export function LoginForm() {
+export function SignupForm() {
   function handleOnSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);               
@@ -14,6 +14,17 @@ export function LoginForm() {
     try {
       const email = z.string().email({ message: "Email inválido"}).parse(formData.get("email"));
       const pass = z.string().min(6, { message: "A senha deve conter no mínimo 6 caracteres"}).parse(formData.get("pass"));
+      const passRetype = z.string().min(6, { message: "A senha deve conter no mínimo 6 caracteres"}).parse(formData.get("pass-retype"));
+
+      if(pass !== passRetype) {
+        return toast("As senhas não batem", {
+          autoClose: 3000,
+          type: "error",
+          theme: "dark",
+          closeOnClick: false,
+          pauseOnHover: false
+        });
+      }
 
       console.log(email, pass);
     } catch(err) {
@@ -45,6 +56,14 @@ export function LoginForm() {
           <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center">
             <Lock color="#9CA3AF" className="mx-3"/>
             <input type="password" name="pass" id="pass" className="bg-transparent w-56 outline-none font-medium placeholder:text-gray-400" placeholder="**********" />
+          </div>
+        </div>
+
+        <div className="">
+          <span className="pl-2">Repita sua senha</span>
+          <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center">
+            <Lock color="#9CA3AF" className="mx-3"/>
+            <input type="password" name="pass-retype" id="pass-retype" className="bg-transparent w-56 outline-none font-medium placeholder:text-gray-400" placeholder="**********" />
           </div>
         </div>
       </div>
