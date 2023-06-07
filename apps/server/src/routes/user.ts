@@ -4,8 +4,8 @@ import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
 
 export async function userRoutes(app: FastifyInstance) {
-  app.get("/users", (req, reply) => {
-    return reply.send("Ok");
+  app.get("/user/:id", (req, reply) => {
+    console.log();
   });
 
   app.post("/user", async (req, reply) => {
