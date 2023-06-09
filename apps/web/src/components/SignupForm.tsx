@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, UserCircle2 } from "lucide-react";
 import { FormEvent } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Link from "next/link";
@@ -12,6 +12,7 @@ export function SignupForm() {
     const formData = new FormData(event.currentTarget);               
 
     try {
+      const name = z.string().min(3, { message: "Deve conter nome e sobrenome"}).parse(formData.get("name"));
       const email = z.string().email({ message: "Email inválido"}).parse(formData.get("email"));
       const pass = z.string().min(6, { message: "A senha deve conter no mínimo 6 caracteres"}).parse(formData.get("pass"));
       const passRetype = z.string().min(6, { message: "A senha deve conter no mínimo 6 caracteres"}).parse(formData.get("pass-retype"));
@@ -26,7 +27,7 @@ export function SignupForm() {
         });
       }
 
-      console.log(email, pass);
+      console.log(name, email, pass);
     } catch(err) {
       if (err instanceof z.ZodError) {
         return toast(err.issues[0].message, {
@@ -43,6 +44,14 @@ export function SignupForm() {
   return (
     <form className="flex flex-col justify-center mt-14" onSubmit={handleOnSubmit}>
       <div className="flex flex-col mx-auto gap-7">
+      <div className="">
+          <span className="pl-2">Seu nome</span>
+          <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center">
+            <UserCircle2 color="#9CA3AF" className="mx-3"/>
+            <input type="text" name="name" id="name" className="bg-transparent w-56 outline-none font-medium placeholder:text-gray-400" placeholder="Jonh Doe"/>
+          </div>
+        </div>
+
         <div className="">
           <span className="pl-2">E-mail</span>
           <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center">
