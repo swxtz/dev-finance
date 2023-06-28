@@ -1,7 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { prisma } from "../lib/prisma";
-import bcrypt from "bcrypt";
 import { getPwdHash } from "../lib/bcrypt";
 
 export async function userRoutes(app: FastifyInstance) {
@@ -40,9 +39,15 @@ export async function userRoutes(app: FastifyInstance) {
 
       const hash = await getPwdHash(password);
 
-      console.log(hash);
+      await prisma.user.create({
+        data: {
+          email,
+          name,
+          password: hash
+        }
+      });
 
-      reply.send(hash);
+      reply.send({ message: "conta criada com sucesso" });
 
       return reply.code(201).send({ message: "Conta criada" });
     } catch (err) {
