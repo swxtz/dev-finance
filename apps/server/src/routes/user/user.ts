@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
 import { z } from "zod";
-import { prisma } from "../lib/prisma";
-import { getPwdHash } from "../lib/bcrypt";
+import { prisma } from "../../lib/prisma";
+import { getPwdHash } from "../../lib/bcrypt";
 
 export async function userRoutes(app: FastifyInstance) {
   app.get("/user/:id", (req, reply) => {
