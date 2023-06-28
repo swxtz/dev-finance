@@ -16,4 +16,6 @@ model User {
   email     String   @unique
   password  String
   CreatedAt DateTime @default(now())
+
+  @@map("users")
 }

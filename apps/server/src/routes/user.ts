@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { prisma } from "../lib/prisma";
 import bcrypt from "bcrypt";
+import { getPwdHash } from "../lib/bcrypt";
 
 export async function userRoutes(app: FastifyInstance) {
   app.get("/user/:id", (req, reply) => {
@@ -37,19 +38,11 @@ export async function userRoutes(app: FastifyInstance) {
           .send({ message: "Esse E-mail já foi utilizado" });
       }
 
-      const salts = Number(process.env.SALT_ROUNDS);
+      const hash = await getPwdHash(password);
 
-      await bcrypt.genSalt(salts, async function (err, salt) {
-        bcrypt.hash(password, salt, async function (err, hash) {
-          await prisma.user.create({
-            data: {
-              name,
-              email,
-              password: hash,
-            },
-          });
-        });
-      });
+      console.log(hash);
+
+      reply.send(hash);
 
       return reply.code(201).send({ message: "Conta criada" });
     } catch (err) {
