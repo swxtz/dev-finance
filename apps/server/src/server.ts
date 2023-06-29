@@ -2,13 +2,22 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import fastify from "fastify";
+import jwt from "@fastify/jwt";
+
 import { userRoutes } from "./routes/user/user";
+import { authRoutes } from "./routes/auth/auth";
 
 const app = fastify();
 
 const port = Number(process.env.HOST_PORT) || 3000;
+const jwtSecret = process.env.JWT_SECRET || "dev";
+
+app.register(jwt, {
+  secret: jwtSecret
+});
 
 app.register(userRoutes);
+app.register(authRoutes);
 
 app.listen({
   port,
