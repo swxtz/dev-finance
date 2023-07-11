@@ -36,7 +36,7 @@ export async function authRoutes(app: FastifyInstance) {
       });
 
       if (!query) {
-        return reply.send({ message: "email nao achado" }).status(400);
+        return reply.send({ message: "email não achado" }).status(400);
       }
 
       const verifyPwd = await verifyPwdHash(password, query.password);
