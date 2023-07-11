@@ -13,6 +13,9 @@ export async function userRoutes(app: FastifyInstance) {
       name: z
         .string()
         .min(3, { message: "O nome deve ter no minimo 3 caracteres" }),
+      surname: z
+        .string()
+        .min(3, { message: "O nome deve ter no minimo 3 caracteres" }),
       email: z
         .string()
         .email({ message: "E-mail não valido" })
@@ -23,7 +26,7 @@ export async function userRoutes(app: FastifyInstance) {
     });
 
     try {
-      const { name, email, password } = schema.parse(req.body);
+      const { name, surname, email, password } = schema.parse(req.body);
 
       const emailExist = await prisma.user.findFirst({
         where: {
@@ -43,8 +46,9 @@ export async function userRoutes(app: FastifyInstance) {
         data: {
           email,
           name,
-          password: hash
-        }
+          surname,
+          password: hash,
+        },
       });
 
       reply.send({ message: "conta criada com sucesso" });

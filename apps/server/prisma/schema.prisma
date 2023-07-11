@@ -16,7 +16,13 @@ model User {
   surname   String
   email     String   @unique
   password  String
+  rule      Rule     @default(USER)
   CreatedAt DateTime @default(now())
 
   @@map("users")
+}
+
+enum Rule {
+  USER
+  ADMIN
 }
