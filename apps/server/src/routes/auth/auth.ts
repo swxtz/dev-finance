@@ -30,6 +30,7 @@ export async function authRoutes(app: FastifyInstance) {
         select: {
           password: true,
           name: true,
+          surname: true,
           email: true,
           id: true,
         },
@@ -47,13 +48,14 @@ export async function authRoutes(app: FastifyInstance) {
 
       const token = app.jwt.sign({
         name: query.name,
+        surname: query.surname,
         email: query.email,
       }, {
         expiresIn: timeToExpires,
         sub: query.id
       });
 
-      return reply.send({ message: token }).status(200);
+      return reply.send({ "token": token }).status(200);
 
     } catch (err) {
       if (err instanceof z.ZodError) {

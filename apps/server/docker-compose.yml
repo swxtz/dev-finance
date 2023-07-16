@@ -11,3 +11,5 @@ services:
       - POSTGRESQL_USERNAME=dev
       - POSTGRESQL_PASSWORD=postgres
       - POSTGRESQL_DATABASE=finance
+    volumes:
+    - ./tmp/ostgres-data:/var/lib/postgresql/data
