@@ -22,7 +22,7 @@ export default function RootLayout({
   children: ReactNode
 }) {
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" className="h-screen">
       <body className={`text-gray-200 ${roboto.className} bg-[#121214]`}>
         <Header />
         {children}
