@@ -10,7 +10,7 @@ export default function Home() {
         <p className="invisible hidden md:visible md:block mt-12 text-center text-gray-400 text-2xl w-[694px] mx-auto">Com a dev.finance você terá controle completo da sua vida financeira de forma fácil e rápida</p>
       </div>
       <div className="mt-16 flex items-center flex-col gap-8 md:flex-row md:justify-center">
-        <Link href="#" className="w-[294px] h-12 bg-green-700 text-gray-200 text-base font-semibold flex items-center justify-center rounded-md md:w-fit md:px-6 md:py-4" >
+        <Link href="/signup" className="w-[294px] h-12 bg-green-700 text-gray-200 text-base font-semibold flex items-center justify-center rounded-md md:w-fit md:px-6 md:py-4" >
           Comece agora
         </Link>
         <Link href="/signin" className="w-[294px] h-12 bg-slate-800 text-gray-200 text-base font-semibold flex items-center justify-center rounded-md gap-2 md:w-fit md:px-6 md:py-4" >

@@ -22,8 +22,8 @@ export default function RootLayout({
   children: ReactNode
 }) {
   return (
-    <html lang="pt-br" className="h-screen">
-      <body className={`text-gray-200 ${roboto.className} bg-[#121214]`}>
+    <html lang="pt-br" className="h-screen bg-[#121214]">
+      <body className={`text-gray-200 ${roboto.className}`}>
         <Header />
         {children}
         <Analytics />

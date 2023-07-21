@@ -34,7 +34,7 @@ export function LoginForm() {
       <div className="flex flex-col mx-auto gap-7">
         <div className="">
           <span className="pl-2">E-mail</span>
-          <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center">
+          <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center md:w-96">
             <Mail color="#9CA3AF" className="mx-3"/>
             <input type="email" name="email" id="email" className="bg-transparent w-56 outline-none font-medium placeholder:text-gray-400" placeholder="john.doe@example.com"/>
           </div>
@@ -42,7 +42,7 @@ export function LoginForm() {
 
         <div className="">
           <span className="pl-2">Senha</span>
-          <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center">
+          <div className="flex flex-row bg-zinc-700 w-[294px] h-12 rounded-md gap-2.5 items-center md:w-96">
             <Lock color="#9CA3AF" className="mx-3"/>
             <input type="password" name="pass" id="pass" className="bg-transparent w-56 outline-none font-medium placeholder:text-gray-400" placeholder="**********" />
           </div>
@@ -52,11 +52,11 @@ export function LoginForm() {
       <div className="mx-auto mt-16 flex flex-col">
         <button 
           type="submit"
-          className="w-[294px] h-12 bg-green-700 rounded-md font-semibold transition-colors hover:bg-green-800"
+          className="w-[294px] h-12 bg-green-700 rounded-md font-semibold transition-colors hover:bg-green-800 md:w-96"
         >
           Entrar
         </button>
-        <Link href="/signin" className="text-center underline font-semibold text-sm mt-3">Ja possui uma conta? Clique aqui</Link>
+        <Link href="/signup" className="text-center underline font-semibold text-sm mt-3">Ja possui uma conta? Clique aqui</Link>
         
       </div>
       <ToastContainer />

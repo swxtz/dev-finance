@@ -4,7 +4,7 @@ export default function Signin() {
   return (
     <main>
       <div className="h-screen px-9">
-        <h2 className="text-2xl text-gray-200 text-center pt-16 font-medium">Bem-vindo de volta</h2>
+        <h2 className="text-2xl text-gray-200 text-center pt-16 font-medium md:text-3xl">Bem-vindo de volta</h2>
         <LoginForm />
       </div>
     </main>
