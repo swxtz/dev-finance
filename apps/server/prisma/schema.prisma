@@ -17,8 +17,8 @@ model User {
   email     String    @unique
   password  String
   rule      UserRoles @default(USER)
-  createdAt DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
+  createdAt DateTime  @default(now()) @map("created_at")
+  updateAt  DateTime  @updatedAt @map("update_at")
 
   transactions Transaction[]
 
@@ -31,13 +31,20 @@ enum UserRoles {
 }
 
 model Transaction {
-  id          String @id @default(uuid())
-  idOwner     String
+  id          String          @id @default(uuid())
+  idOwner     String          @map("id_owner")
   title       String
   description String
   value       Int
+  date        DateTime?       @default(now())
+  type        TransactionType
 
   user User @relation(fields: [idOwner], references: [id])
 
   @@map("transactions")
+}
+
+enum TransactionType {
+  INCOME
+  EXPENSE
 }

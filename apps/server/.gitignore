@@ -1,5 +1,15 @@
+# Defaults for node projects (typescript)
 node_modules
-.env
 dist
+*.log
+
+# Defaults Ide configs
 .vscode
+.idea
+
+# Docker and env file
+.env
 tmp
+
+# Package managers
+yarn-error.log

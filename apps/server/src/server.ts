@@ -6,6 +6,7 @@ import jwt from "@fastify/jwt";
 
 import { userRoutes } from "./routes/user/user";
 import { authRoutes } from "./routes/auth/auth";
+import { transactionRoutes } from "./routes/transactions/transactions";
 
 const app = fastify();
 
@@ -18,6 +19,7 @@ app.register(jwt, {
 
 app.register(userRoutes);
 app.register(authRoutes);
+app.register(transactionRoutes);
 
 app.listen({
   port,
