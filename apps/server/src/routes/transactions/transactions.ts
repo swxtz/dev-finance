@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { prisma } from "../../lib/prisma";
 
+
 export async function transactionRoutes(app: FastifyInstance) {
   app.addHook("preHandler", async (request) => {
     await request.jwtVerify();
@@ -12,7 +13,7 @@ export async function transactionRoutes(app: FastifyInstance) {
       title: z.string().nonempty(),
       description: z.string().nonempty(),
       value:  z.number().min(1),
-      date: z.string().nullable().optional(),
+      date: z.string(),
       type: z.enum(["INCOME", "EXPENSE"]),
     });
 

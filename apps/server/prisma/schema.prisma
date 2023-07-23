@@ -36,7 +36,7 @@ model Transaction {
   title       String
   description String
   value       Int
-  date        DateTime?       @default(now())
+  date        DateTime        @default(now())
   type        TransactionType
 
   user User @relation(fields: [idOwner], references: [id])
