@@ -2,7 +2,6 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 import { prisma } from "../../lib/prisma";
 
-
 export async function transactionRoutes(app: FastifyInstance) {
   app.addHook("preHandler", async (request) => {
     await request.jwtVerify();
@@ -12,15 +11,17 @@ export async function transactionRoutes(app: FastifyInstance) {
     const bodySchema = z.object({
       title: z.string().nonempty(),
       description: z.string().nonempty(),
-      value:  z.number().min(1),
-      date: z.string(),
+      value: z.number().min(1),
+      date: z.string().nonempty(),
       type: z.enum(["INCOME", "EXPENSE"]),
     });
 
     try {
-      const { title, description, value, date, type } = bodySchema.parse(request.body);
-      
-      const query = await prisma.transaction.create({
+      const { title, description, value, date, type } = bodySchema.parse(
+        request.body
+      );
+
+      await prisma.transaction.create({
         data: {
           title,
           description,
@@ -28,12 +29,10 @@ export async function transactionRoutes(app: FastifyInstance) {
           date,
           type,
           idOwner: request.user.sub,
-        }
+        },
       });
 
-      console.log(query);
-      return reply.send("criado");
-
+      return reply.send({ message: "transação criada" });
     } catch (err) {
       if (err instanceof z.ZodError) {
         return reply.code(400).send({ message: err.issues[0].message });
@@ -41,6 +40,5 @@ export async function transactionRoutes(app: FastifyInstance) {
 
       console.log(err);
     }
-
   });
 }
