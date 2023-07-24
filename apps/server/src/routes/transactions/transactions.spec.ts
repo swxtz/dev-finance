@@ -94,4 +94,51 @@ describe("POST /transactions", async () => {
     expect(response.status).toBe(400);
     expect(response.body).toEqual({ message: "Required" });
   });
+
+  it("it should not be possible to create a transaction without type", async () => {
+    const transaction = {
+      title: "title",
+      description: "description",
+      value: 100,
+      date: "2021-01-01",
+    };
+
+    const jonh = {
+      email: "jonh.doe@example.com",
+      password: "superPassword",
+    };
+
+    const token = await request(app.server).post("/auth/user").send(jonh);
+
+    const response = await request(app.server)
+      .post("/transactions")
+      .send(transaction)
+      .set("Authorization", `Bearer ${token.body.token}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: "Required" });
+  });
+
+  it("it should not be possible to create a transaction with invalid type", async () => {
+    const transaction = {
+      title: "title",
+      description: "description",
+      value: 100,
+      date: "2021-01-01",
+      type: "INVALID_TYPE",
+    };
+
+    const jonh = {
+      email: "jonh.doe@example.com",
+      password: "superPassword",
+    };
+
+    const token = await request(app.server).post("/auth/user").send(jonh);
+
+    const response = await request(app.server)
+      .post("/transactions")
+      .send(transaction)
+      .set("Authorization", `Bearer ${token.body.token}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toEqual({ message: "Invalid enum value. Expected 'INCOME' | 'EXPENSE', received 'INVALID_TYPE'" });
+  });
 });
