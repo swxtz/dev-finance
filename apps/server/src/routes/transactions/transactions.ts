@@ -32,7 +32,7 @@ export async function transactionRoutes(app: FastifyInstance) {
         },
       });
 
-      return reply.send({ message: "transação criada" });
+      return reply.code(201).send({ message: "transação criada" });
     } catch (err) {
       if (err instanceof z.ZodError) {
         return reply.code(400).send({ message: err.issues[0].message });
