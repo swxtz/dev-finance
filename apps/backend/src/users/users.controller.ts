@@ -1,11 +1,24 @@
-import { Body, Controller, Get, Post, UsePipes } from "@nestjs/common";
+import {
+    Body,
+    Controller,
+    Get,
+    Headers,
+    Post,
+    UseGuards,
+    UsePipes,
+} from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dtos/create-user-dtos";
 import { ZodValidationPipe } from "nestjs-zod";
+import { AuthGuard } from "@/auth/auth.guard";
+import { UtilsService } from "@/utils/utils.service";
 
 @Controller("users")
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+    constructor(
+        private readonly usersService: UsersService,
+        private jwtUtils: UtilsService,
+    ) {}
 
     @UsePipes(new ZodValidationPipe(CreateUserDto))
     @Post()
@@ -14,7 +27,9 @@ export class UsersController {
     }
 
     @Get()
-    async find() {
-        return this.usersService.find();
+    @UseGuards(AuthGuard)
+    async find(@Headers("Authorization") jwt: any) {
+        const token = this.jwtUtils.getToken(jwt);
+        return this.usersService.find(token);
     }
 }

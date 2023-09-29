@@ -41,9 +41,12 @@ export class UsersService {
         }
     }
 
-    async find() {
+    async find(data: any) {
         try {
-            const users = await this.prisma.user.findMany({
+            const users = await this.prisma.user.findUnique({
+                where: {
+                    id: data.sub,
+                },
                 select: {
                     id: true,
                     firstName: true,
@@ -51,6 +54,10 @@ export class UsersService {
                     email: true,
                 },
             });
+
+            if (!users) {
+                throw new HttpException("Usuario não encontrado", 404);
+            }
 
             return users;
         } catch (err) {
