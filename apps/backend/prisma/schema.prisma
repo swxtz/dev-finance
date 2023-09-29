@@ -48,3 +48,24 @@ model Balance {
 
     @@map("balances")
 }
+
+model Transaction {
+    id String @id @default(uuid())
+
+    name        String
+    amount      BigInt
+    description String?
+    date        DateTime @default(now())
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    type TransactionType @map("transaction_type")
+
+    @@map("transactions")
+}
+
+enum TransactionType {
+    INCOME
+    EXPENSE
+}
