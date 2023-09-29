@@ -11,10 +11,9 @@ datasource db {
 }
 
 model User {
-    id        String @id @default(cuid())
-    balanceId String @map("balance_id")
-
-    balance Balance @relation(fields: [balanceId], references: [id])
+    id        String   @id @default(cuid())
+    balanceId String?  @unique @map("balance_id")
+    balance   Balance? @relation(fields: [balanceId], references: [id])
 
     email        String  @unique
     firstName    String  @map("first_name")
@@ -43,10 +42,9 @@ model Balance {
     expense BigInt
     balance BigInt
 
-    User User[]
-
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    User      User?
 
     @@map("balances")
 }

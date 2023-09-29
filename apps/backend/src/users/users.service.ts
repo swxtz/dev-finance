@@ -25,6 +25,13 @@ export class UsersService {
                     lastName: data.lastName,
                     email: data.email,
                     passwordHash: await argon.hash(data.password),
+                    balance: {
+                        create: {
+                            income: 0,
+                            expense: 0,
+                            balance: 0,
+                        },
+                    },
                 },
                 select: {
                     id: true,
