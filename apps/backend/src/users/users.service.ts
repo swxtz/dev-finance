@@ -40,4 +40,22 @@ export class UsersService {
             throw new HttpException(err, 500);
         }
     }
+
+    async find() {
+        try {
+            const users = await this.prisma.user.findMany({
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                    email: true,
+                },
+            });
+
+            return users;
+        } catch (err) {
+            console.log(err);
+            throw new HttpException(err, 500);
+        }
+    }
 }
