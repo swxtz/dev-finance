@@ -58,4 +58,30 @@ export class UsersService {
             throw new HttpException(err, 500);
         }
     }
+
+    // async update(id: string, data: CreateUserDto) {
+    //     try {
+    //         const user = await this.prisma.user.update({
+    //             where: {
+    //                 id,
+    //             },
+    //             data: {
+    //                 firstName: data.firstName,
+    //                 lastName: data.lastName,
+    //                 email: data.email,
+    //             },
+    //             select: {
+    //                 id: true,
+    //                 firstName: true,
+    //                 lastName: true,
+    //                 email: true,
+    //             },
+    //         });
+
+    //         return user;
+    //     } catch (err) {
+    //         console.log(err);
+    //         throw new HttpException(err, 500);
+    //     }
+    // }
 }
