@@ -11,15 +11,42 @@ datasource db {
 }
 
 model User {
-    id           String  @id @default(cuid())
+    id        String @id @default(cuid())
+    balanceId String @map("balance_id")
+
+    balance Balance @relation(fields: [balanceId], references: [id])
+
     email        String  @unique
     firstName    String  @map("first_name")
     lastName     String  @map("last_name")
     passwordHash String  @map("password_hash")
     avatarUrl    String? @map("avatar_url")
 
+    userType UserType[] @map("user_type")
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     @@map("users")
+}
+
+enum UserType {
+    ADMIN
+    USER
+    BETA_USER
+}
+
+model Balance {
+    id String @id @default(cuid())
+
+    income  BigInt
+    expense BigInt
+    balance BigInt
+
+    User User[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("balances")
 }
