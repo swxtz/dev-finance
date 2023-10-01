@@ -21,7 +21,7 @@ model User {
     passwordHash String  @map("password_hash")
     avatarUrl    String? @map("avatar_url")
 
-    userType UserType[] @map("user_type")
+    userType UserType[] @default([USER]) @map("user_type")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
