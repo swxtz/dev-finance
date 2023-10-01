@@ -42,6 +42,13 @@ export class TransactionsController {
         return this.transactionsService.findAll(token);
     }
 
+    @Get("me")
+    @UseGuards(AuthGuard)
+    findAllByUser(@Headers("Authorization") jwt: any) {
+        const token = this.jwtUtils.getToken(jwt);
+        return this.transactionsService.findAllByUser(token);
+    }
+
     @Get(":id")
     findOne(@Param("id") id: string) {
         return this.transactionsService.findOne(+id);
@@ -56,7 +63,9 @@ export class TransactionsController {
     }
 
     @Delete(":id")
-    remove(@Param("id") id: string) {
-        return this.transactionsService.remove(+id);
+    @UseGuards(AuthGuard)
+    remove(@Param("id") id: string, @Headers("Authorization") jwt: any) {
+        const token = this.jwtUtils.getToken(jwt);
+        return this.transactionsService.remove(id, token);
     }
 }
