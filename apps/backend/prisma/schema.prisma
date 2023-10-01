@@ -56,7 +56,7 @@ model Transaction {
     owner   User?  @relation(fields: [ownerId], references: [id])
 
     name        String
-    amount      BigInt
+    amount      Float
     description String?
     date        DateTime @default(now())
 
