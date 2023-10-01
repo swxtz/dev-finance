@@ -35,9 +35,11 @@ export class TransactionsController {
         return this.transactionsService.create(createTransactionDto, token);
     }
 
-    @Get()
-    findAll() {
-        return this.transactionsService.findAll();
+    @Get("all")
+    @UseGuards(AuthGuard)
+    findAll(@Headers("Authorization") jwt: any) {
+        const token = this.jwtUtils.getToken(jwt);
+        return this.transactionsService.findAll(token);
     }
 
     @Get(":id")

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
 import { UpdateTransactionDto } from "./dto/update-transaction.dto";
 import { PrismaService } from "@/prisma/prisma.service";
@@ -22,8 +22,34 @@ export class TransactionsService {
         return transaction;
     }
 
-    findAll() {
-        return `This action returns all transactions`;
+    async findAll(token: any) {
+        const isAdmin = await this.prisma.user.findUnique({
+            where: { id: token.sub },
+            select: { userType: true },
+        });
+
+        if (
+            isAdmin.userType[0] === "ADMIN" ||
+            isAdmin.userType[1] === "ADMIN" ||
+            isAdmin.userType[2] === "ADMIN"
+        ) {
+            const transactions = await this.prisma.transaction.findMany({
+                include: {
+                    owner: {
+                        select: {
+                            id: true,
+                            email: true,
+                            firstName: true,
+                            lastName: true,
+                            userType: true,
+                        },
+                    },
+                },
+            });
+
+            return transactions;
+        }
+        throw new HttpException("Unauthorized", 401);
     }
 
     findOne(id: number) {
