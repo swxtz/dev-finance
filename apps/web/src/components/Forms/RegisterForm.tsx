@@ -12,12 +12,13 @@ import { UserIcon } from "@/icons/UserIcon";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ValidationErrorMessage } from "../ValidationErrorMessege/ValidationErrorMessage";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const createUserFormSchema = z
     .object({
-        name: z.string().nonempty("O nome é obrigatório"),
-        surname: z.string().nonempty("O sobrenome é obrigatório"),
+        firstName: z.string().nonempty("O nome é obrigatório"),
+        lastName: z.string().nonempty("O sobrenome é obrigatório"),
         email: z
             .string()
             .email("Formato de e-mail invalido")
@@ -31,11 +32,11 @@ const createUserFormSchema = z
             .string()
             .min(1, "A confirmação de senha é obrigatória")
             .nonempty("A senha é obrigatória"),
-        terms: z.literal(true, {
-            errorMap: () => ({
-                message: "Você deve aceitar os Termos e Condições",
-            }),
-        }),
+        // terms: z.literal(true, {
+        //     errorMap: () => ({
+        //         message: "Você deve aceitar os Termos e Condições",
+        //     }),
+        // }),
     })
     .refine((data) => data.password === data.confirmPassword, {
         path: ["confirmPassword"],
@@ -53,8 +54,26 @@ export function RegisterForm() {
         resolver: zodResolver(createUserFormSchema),
     });
 
-    function createUser(data: any) {
-        console.log(JSON.stringify(data));
+    async function createUser(data: any) {
+        await axios
+            .post("http://localhost:3333/users", {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: data.password,
+            })
+            .then(() => {
+                toast.success("Conta criada com sucesso");
+                console.log("criou");
+            })
+
+            .catch((err) => {
+                console.log(err.response.data);
+                toast.error(err.response.data.message, {
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                });
+            });
     }
 
     return (
@@ -72,12 +91,12 @@ export function RegisterForm() {
                             id="name"
                             className="bg-transparent w-full outline-none font-medium placeholder:text-gray-400"
                             placeholder="John"
-                            {...register("name")}
+                            {...register("firstName")}
                         />
                     </div>
-                    {errors.name && (
+                    {errors.firstName && (
                         <ValidationErrorMessage>
-                            {errors.name.message}
+                            {errors.firstName.message}
                         </ValidationErrorMessage>
                     )}
                 </div>
@@ -91,12 +110,12 @@ export function RegisterForm() {
                             id="surname"
                             className="bg-transparent w-full outline-none font-medium placeholder:text-gray-400"
                             placeholder="Doe"
-                            {...register("surname")}
+                            {...register("lastName")}
                         />
                     </div>
-                    {errors.surname && (
+                    {errors.lastName && (
                         <ValidationErrorMessage>
-                            {errors.surname.message}
+                            {errors.lastName.message}
                         </ValidationErrorMessage>
                     )}
                 </div>
@@ -160,7 +179,8 @@ export function RegisterForm() {
 
                 <div className="mx-auto w-[294px] md:w-96">
                     <div className="flex flex-row items-center">
-                        <Checkbox.Root className="h-6 w-6 bg-zinc-700 rounded-lg outline-none" {...register("terms")} >
+                        {/*  {...register("terms")} */}
+                        <Checkbox.Root className="h-6 w-6 bg-zinc-700 rounded-lg outline-none">
                             <Checkbox.Indicator className="text-green-700 flex items-center justify-center">
                                 <CheckIcon className="h-5 w-5" />
                             </Checkbox.Indicator>
@@ -170,11 +190,6 @@ export function RegisterForm() {
                             você concorda com todos os termos de serviços?
                         </span>
                     </div>
-                    {errors.terms && (
-                        <ValidationErrorMessage>
-                            {errors.terms.message}
-                        </ValidationErrorMessage>
-                    )}
                 </div>
             </div>
 
