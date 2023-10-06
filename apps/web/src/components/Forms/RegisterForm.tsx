@@ -62,6 +62,11 @@ export function RegisterForm() {
                 email: data.email,
                 password: data.password,
             })
+            .then(() => {
+                toast.success("Conta criada com sucesso");
+                console.log("criou");
+            })
+
             .catch((err) => {
                 console.log(err.response.data);
                 toast.error(err.response.data.message, {
@@ -69,9 +74,6 @@ export function RegisterForm() {
                     hideProgressBar: false,
                 });
             });
-
-        toast.success("Conta criada com sucesso");
-        console.log("criou");
     }
 
     return (
