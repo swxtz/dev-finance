@@ -1,7 +1,11 @@
 import NextAuthSessionProvider from "@/providers/sessionProvider";
+
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 
 import { Analytics } from "@vercel/analytics/react";
 
@@ -30,6 +34,7 @@ export default function RootLayout({
                 <NextAuthSessionProvider>
                     {children}
                     <Analytics />
+                    <ToastContainer autoClose={5000} hideProgressBar={false} theme="dark" />
                     {/* <Footer /> */}
                 </NextAuthSessionProvider>
             </body>

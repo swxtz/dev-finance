@@ -13,8 +13,7 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ValidationErrorMessage } from "../ValidationErrorMessege/ValidationErrorMessage";
 import axios from "axios";
-
-
+import { toast } from "react-toastify";
 
 const createUserFormSchema = z
     .object({
@@ -56,21 +55,22 @@ export function RegisterForm() {
     });
 
     async function createUser(data: any) {
-        const res = await axios.post("http://localhost:3333/users", {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            password: data.password,
-        });
+        await axios
+            .post("http://localhost:3333/users", {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                password: data.password,
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+                toast.error(err.response.data.message, {
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                });
+            });
 
-
-
-        if(res.status !== 201) {
-            console.log(res.data);
-        }
-
-        console.log(JSON.stringify(data));
-
+        toast.success("Conta criada com sucesso");
         console.log("criou");
     }
 
@@ -178,7 +178,7 @@ export function RegisterForm() {
                 <div className="mx-auto w-[294px] md:w-96">
                     <div className="flex flex-row items-center">
                         {/*  {...register("terms")} */}
-                        <Checkbox.Root className="h-6 w-6 bg-zinc-700 rounded-lg outline-none"  >
+                        <Checkbox.Root className="h-6 w-6 bg-zinc-700 rounded-lg outline-none">
                             <Checkbox.Indicator className="text-green-700 flex items-center justify-center">
                                 <CheckIcon className="h-5 w-5" />
                             </Checkbox.Indicator>
@@ -188,7 +188,6 @@ export function RegisterForm() {
                             você concorda com todos os termos de serviços?
                         </span>
                     </div>
-                    
                 </div>
             </div>
 
