@@ -17,10 +17,10 @@
     "test:watch": "vitest",
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk --inspect --logHeapUsage --threads=false",
-        "seed": "tsx ./src/db/seed.ts",
+    "seed": "tsx ./src/db/seed.ts",
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "prisma": {
-        "seed": "tsx ./src/db/seed.ts"
+      "seed": "tsx ./src/db/seed.ts"
     }
   },
   "dependencies": {
@@ -29,11 +29,13 @@
     "@nestjs/jwt": "^10.1.1",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.1.13",
     "@prisma/client": "^5.3.1",
     "argon2": "^0.31.1",
     "nestjs-zod": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.0",
     "zod": "^3.22.2"
   },
   "devDependencies": {

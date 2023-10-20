@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+// import axios from "axios";
 
 const apiUrl = process.env.API_URL || "";
 
@@ -13,7 +14,7 @@ const nextAuthOptions: NextAuthOptions = {
             },
 
             async authorize(credentials) {
-                const response = await fetch(`${apiUrl}/auth/user`, {
+                const response = await fetch(`http://localhost:3333/auth`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
