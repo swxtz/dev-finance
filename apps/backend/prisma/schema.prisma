@@ -40,9 +40,9 @@ enum UserType {
 model Balance {
     id String @id @default(cuid())
 
-    income  BigInt
-    expense BigInt
-    balance BigInt
+    income  Float
+    expense Float
+    balance Float
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

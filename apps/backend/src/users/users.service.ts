@@ -98,4 +98,26 @@ export class UsersService {
     //         throw new HttpException(err, 500);
     //     }
     // }
+
+    async getBalance(jwt: any) {
+        try {
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    id: jwt.sub,
+                },
+                select: {
+                    balance: true,
+                },
+            });
+
+            if (!user) {
+                throw new HttpException("Usuario não encontrado", 404);
+            }
+
+            return user;
+        } catch (err) {
+            console.log(err);
+            throw new HttpException(err, 500);
+        }
+    }
 }
