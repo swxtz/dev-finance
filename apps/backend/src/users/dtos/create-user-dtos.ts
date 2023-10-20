@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { createZodDto } from "nestjs-zod";
 import { z } from "zod";
 
@@ -9,4 +10,15 @@ const schema = z.object({
     avatarUrl: z.string().url().optional(),
 });
 
-export class CreateUserDto extends createZodDto(schema) {}
+export class CreateUserDto extends createZodDto(schema) {
+    @ApiProperty()
+    firstName: string;
+    @ApiProperty()
+    lastName: string;
+    @ApiProperty()
+    email: string;
+    @ApiProperty()
+    password: string;
+    @ApiProperty()
+    avatarUrl: string;
+}

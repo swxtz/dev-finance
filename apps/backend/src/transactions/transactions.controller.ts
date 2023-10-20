@@ -16,8 +16,10 @@ import { UpdateTransactionDto } from "./dto/update-transaction.dto";
 import { ZodValidationPipe } from "nestjs-zod";
 import { AuthGuard } from "@/auth/auth.guard";
 import { UtilsService } from "@/utils/utils.service";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("transactions")
+@ApiTags("Transactions")
 export class TransactionsController {
     constructor(
         private readonly transactionsService: TransactionsService,

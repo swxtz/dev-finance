@@ -12,8 +12,10 @@ import { CreateUserDto } from "./dtos/create-user-dtos";
 import { ZodValidationPipe } from "nestjs-zod";
 import { AuthGuard } from "@/auth/auth.guard";
 import { UtilsService } from "@/utils/utils.service";
+import { ApiTags } from "@nestjs/swagger";
 
 @Controller("users")
+@ApiTags("Users")
 export class UsersController {
     constructor(
         private readonly usersService: UsersService,
