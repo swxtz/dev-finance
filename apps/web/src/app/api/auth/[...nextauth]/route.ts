@@ -14,7 +14,7 @@ const nextAuthOptions: NextAuthOptions = {
             },
 
             async authorize(credentials) {
-                const response = await fetch(`http://localhost:3333/auth`, {
+                const response = await fetch("http://localhost:3333/auth", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -25,14 +25,14 @@ const nextAuthOptions: NextAuthOptions = {
                     }),
                 });
 
-                
+                const user = await response.json();
+                const code = await response.status;
+                console.log(code);
 
-                // const response = await axios.post(`${apiUrl}/auth/user`, {
-                //     email: credentials?.email,
-                //     password: credentials?.password
-                // });
+                console.log("1");
 
-                const user = response.json();
+                console.log("log do user");
+                console.log(user);
 
                 if (user && response.ok) {
                     return user;
