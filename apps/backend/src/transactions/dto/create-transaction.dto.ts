@@ -22,7 +22,6 @@ export class CreateTransactionDto extends createZodDto(schema) {
     @ApiProperty({
         enum: ["INCOME", "EXPENSE"],
         enumName: "TransactionType",
-        examples: {}
     })
-    type: string;
+    type: "INCOME" | "EXPENSE";
 }

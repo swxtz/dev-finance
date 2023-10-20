@@ -10,7 +10,7 @@ async function bootstrap() {
     const config = new DocumentBuilder()
         .setTitle("Dev Finance API")
         .setDescription("Um site para gerenciar sua vida financeira")
-        .setVersion("0.0.1")
+        .setVersion("0.0.3")
         .build();
 
     const document = SwaggerModule.createDocument(app, config);

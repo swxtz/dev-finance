@@ -12,7 +12,7 @@ import { CreateUserDto } from "./dtos/create-user-dtos";
 import { ZodValidationPipe } from "nestjs-zod";
 import { AuthGuard } from "@/auth/auth.guard";
 import { UtilsService } from "@/utils/utils.service";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 @Controller("users")
 @ApiTags("Users")
@@ -30,6 +30,7 @@ export class UsersController {
 
     @Get()
     @UseGuards(AuthGuard)
+    @ApiBearerAuth("jwt")
     async find(@Headers("Authorization") jwt: any) {
         const token = this.jwtUtils.getToken(jwt);
         return this.usersService.find(token);
