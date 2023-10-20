@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { createZodDto } from "nestjs-zod";
 import { z } from "zod";
 
@@ -9,4 +10,19 @@ const schema = z.object({
     type: z.enum(["INCOME", "EXPENSE"]),
 });
 
-export class CreateTransactionDto extends createZodDto(schema) {}
+export class CreateTransactionDto extends createZodDto(schema) {
+    @ApiProperty()
+    name: string;
+    @ApiProperty()
+    amount: number;
+    @ApiProperty()
+    description: string;
+    @ApiProperty()
+    date: string;
+    @ApiProperty({
+        enum: ["INCOME", "EXPENSE"],
+        enumName: "TransactionType",
+        examples: {}
+    })
+    type: string;
+}
