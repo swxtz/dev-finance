@@ -1,8 +1,7 @@
-import { NextApiRequest } from "next";
 import { getToken } from "next-auth/jwt";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest) {
     const secret = process.env.NEXTAUTH_SECRET;
 
     const token = await getToken({ req, secret });
