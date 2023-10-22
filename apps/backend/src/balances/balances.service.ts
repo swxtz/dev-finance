@@ -9,7 +9,7 @@ export class BalancesService {
         try {
             const user = await this.prisma.user.findUnique({
                 where: {
-                    id: jwt.id,
+                    id: jwt.sub,
                 },
                 include: {
                     balance: true,
@@ -20,7 +20,7 @@ export class BalancesService {
                 throw new HttpException("Usuario não encontrado", 404);
             }
 
-            return user;
+            return user.balance;
         } catch (error) {
             console.log(error);
             throw new HttpException("Erro ao buscar usuário", 500);
