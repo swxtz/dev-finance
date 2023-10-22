@@ -4,6 +4,7 @@ import { UsersModule } from "./users/users.module";
 import { AuthModule } from "./auth/auth.module";
 import { UtilsModule } from "./utils/utils.module";
 import { TransactionsModule } from "./transactions/transactions.module";
+import { BalancesModule } from "./balances/balances.module";
 
 @Module({
     imports: [
@@ -12,6 +13,7 @@ import { TransactionsModule } from "./transactions/transactions.module";
         AuthModule,
         UtilsModule,
         TransactionsModule,
+        BalancesModule,
     ],
     controllers: [],
     providers: [],
