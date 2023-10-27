@@ -2,8 +2,11 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { BalancesController } from "./balances.controller";
 import { BalancesService } from "./balances.service";
 import { vi } from "vitest";
-import { Balance, BalanceEntity } from "./entity/Balance.entity";
+import { Balance } from "./entity/Balance.entity";
 import { PrismaService } from "@/prisma/prisma.service";
+import { AuthGuard } from "@/auth/auth.guard";
+import * as request from "supertest";
+import { AppModule } from "@/app.module";
 
 // const balancesList: Balance[] = [
 //     new BalanceEntity({
@@ -39,6 +42,7 @@ describe("BalancesController", () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let prisma: PrismaService;
+    let app;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -46,15 +50,23 @@ describe("BalancesController", () => {
             providers: [
                 BalancesService,
                 { provide: PrismaService, useValue: prismaMock },
+                AuthGuard,
             ],
         }).compile();
+
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [AppModule], // Importe seu AppModule ou qualquer módulo contendo o endpoint protegido
+        }).compile();
+
+        app = moduleFixture.createNestApplication();
+        await app.init();
 
         balancesService = module.get<BalancesService>(BalancesService);
         prisma = module.get<PrismaService>(PrismaService);
     });
 
     afterEach(() => {
-        jest.clearAllMocks();
+        vi.clearAllMocks();
     });
 
     it("should be defined", () => {
@@ -63,12 +75,12 @@ describe("BalancesController", () => {
     });
 
     describe("get balance", () => {
-        it("should return balance", async () => {
-            const result = await balancesService.getBalances("asd");
-
-            console.log(result);
-
-            expect(result).toBe("balance");
+        // deve retornar um error 401 sem token
+        it("should return 401 without token", async () => {
+            const response = await request(app.getHttpServer()).get(
+                "/balances",
+            );
+            expect(response.status).toBe(401);
         });
     });
 });
