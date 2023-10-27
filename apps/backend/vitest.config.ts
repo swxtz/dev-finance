@@ -1,3 +1,4 @@
+import { resolve } from "path";
 import swc from "unplugin-swc";
 import { defineConfig } from "vitest/config";
 
@@ -15,8 +16,6 @@ export default defineConfig({
     ],
 
     resolve: {
-        alias: {
-            "@": "/path/to/your/src",
-        },
+        alias: [{ find: "@", replacement: resolve(__dirname, "./src") }],
     },
 });
