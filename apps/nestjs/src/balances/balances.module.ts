@@ -3,6 +3,7 @@ import { BalancesService } from "./balances.service";
 import { BalancesController } from "./balances.controller";
 
 @Module({
+    imports: [],
     controllers: [BalancesController],
     providers: [BalancesService],
 })
