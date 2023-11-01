@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch ./src/index.ts"
+    "dev": "tsx watch ./src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,10 @@
     "fastify": "^4.24.3"
   },
   "devDependencies": {
+    "@types/node": "^20.8.10",
+    "@typescript-eslint/eslint-plugin": "^6.9.1",
+    "@typescript-eslint/parser": "^6.9.1",
+    "eslint": "^8.52.0",
     "prisma": "^5.5.2",
     "tsx": "^3.14.0",
     "typescript": "^5.2.2"
