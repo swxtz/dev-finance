@@ -11,6 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ValidationErrorMessage } from "../ValidationErrorMessege/ValidationErrorMessage";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FormButton } from "./FormButton";
+import { Loader2 } from "lucide-react";
 
 
 const loginFormSchema = z.object({
@@ -40,6 +43,8 @@ export function LoginForm() {
 
     async function loginUser(data: LoginFormData) {
 
+        setIsLoading(true);
+
         const result = await signIn("credentials", {
             redirect: false,
             email: data.email,
@@ -48,12 +53,15 @@ export function LoginForm() {
 
         if (result?.error) {
             alert("Credenciais invalidas");
+            setIsLoading(false);
             console.log(result);
             return;
         }
 
         router.replace("/dashboard");
     }
+
+    const [isLoading, setIsLoading] = useState(false);
 
     return (
         <form
@@ -93,12 +101,7 @@ export function LoginForm() {
             </div>
 
             <div className="mx-auto mt-16 flex flex-col">
-                <button
-                    type="submit"
-                    className="w-[294px] h-12 bg-green-700 rounded-md font-semibold transition-colors hover:bg-green-800 md:w-96"
-                >
-                    Entrar
-                </button>
+                {isLoading ? <FormButton><Loader2 className="animate-spin" /></FormButton> : <FormButton>Entrar</FormButton> }
                 <Link
                     href="/register"
                     className="text-center underline font-semibold text-sm mt-3"
