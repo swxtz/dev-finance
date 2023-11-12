@@ -26,7 +26,6 @@ const nextAuthOptions: NextAuthOptions = {
                 });
 
                 const user = await response.json();
-                const code = await response.status;
 
                 if (user && response.ok) {
                     return user;
