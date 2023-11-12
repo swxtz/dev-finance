@@ -9,7 +9,6 @@ import { ToastContainer } from "react-toastify";
 
 import { Analytics } from "@vercel/analytics/react";
 
-// import { Footer } from "@/components/Footer";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
