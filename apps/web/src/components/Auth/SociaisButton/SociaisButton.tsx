@@ -11,12 +11,12 @@ interface SociaisButtonProps {
 }
 
 const link = tv({
-    base: "flex justify-center items-center gap-4 w-[294px] h-[54px] rounded-[10px] transition-colors duration-200",
+    base: "flex justify-center items-center gap-4 w-[294px] h-[54px] rounded-[10px] transition-colors duration-200 md:w-[394px] ",
     variants: {
         color: {
-            github: "bg-sociais-github hover:bg-sociais-githubHover",
-            google: "bg-sociais-google hover:bg-sociais-googleHover",
-            facebook: "bg-sociais-facebook hover:bg-sociais-facebookHover",
+            github: "bg-sociais-github hover:brightness-75",
+            google: "bg-sociais-google hover:brightness-75",
+            facebook: "bg-sociais-facebook hover:brightness-75",
         },
     },
     defaultVariants: {

@@ -14,6 +14,7 @@ export default function Register() {
                     <div className="w-[80px] bg-zinc-700 h-0.5"></div>
                 </div>
                 <SociaisButtons />
+                <div className="mb-20"></div>
             </div> 
         </main>
     );

@@ -16,7 +16,7 @@ module.exports = {
                     // githubHover: "#1A202C",
 
                     google: "#FFFFFF",
-                    googleHover: "#F9FAFB",
+                    googleHover: "#bdbdbd",
                     googleText: "#0000008A",
 
                     facebook: "#1877F2",
