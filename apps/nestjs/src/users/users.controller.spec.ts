@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { INestApplication } from "@nestjs/common";
 import request from "supertest";
 
 type User = {
@@ -9,13 +9,8 @@ type User = {
     avatarUrl: string;
 };
 
-import { PrismaClient } from "@prisma/client";
-import { Test, TestingModule } from "@nestjs/testing";
-import { AppModule } from "@/app.module";
-import { UsersService } from "./users.service";
-import { INestApplication } from "@nestjs/common";
+import { cleanDB, createNestAppInstance } from "test/test.helper";
 
-const prisma = new PrismaClient();
 const user: User[] = [
     {
         email: "john.doe@test.com",
@@ -29,35 +24,23 @@ const user: User[] = [
 
 describe("UsersController", () => {
     let app: INestApplication;
-    describe("Create User", async () => {
-        beforeAll(async () => {
-            const mockAppModule: TestingModule = await Test.createTestingModule(
-                {
-                    imports: [AppModule],
-                    providers: [UsersService],
-                },
-            ).compile();
 
-            const app = mockAppModule.createNestApplication();
-            // httpService = mockAppModule.get<HttpService>(HttpService);
-            await app.init();
-        });
+    beforeEach(async () => {
+        await cleanDB();
+    });
 
-        //deve ser possivel criar um usuario
-        beforeEach(async () => {
-            try {
-                await prisma.user.deleteMany();
-            } catch (error) {
-                console.log(error);
-            }
-        });
+    beforeAll(async () => {
+        app = await createNestAppInstance();
+    });
 
-        it("should be possible to create a user", async () => {
-            const response = await request(app.getUrl())
-                .post("/users")
-                .send(user[0]);
+    afterEach(async () => {
+        await cleanDB();
+    });
 
-            expect(response).toBe(201);
-        });
+    it("should be posible create user", async () => {
+        await request(app.getHttpServer())
+            .post("/users")
+            .send(user[0])
+            .expect(201);
     });
 });
