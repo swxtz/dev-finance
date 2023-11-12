@@ -8,10 +8,20 @@ module.exports = {
     ],
     theme: {
         extend: {
-            backgroundImage: {
-                "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-                "gradient-conic":
-                    "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+            colors: {
+                sociais: {
+                    github: "#1A202C",
+                    // github: "#24292F",
+                    githubHover: "#24292F",
+                    // githubHover: "#1A202C",
+
+                    google: "#FFFFFF",
+                    googleHover: "#F9FAFB",
+                    googleText: "#0000008A",
+
+                    facebook: "#1877F2",
+                    facebookHover: "#166FE5",
+                },
             },
         },
     },

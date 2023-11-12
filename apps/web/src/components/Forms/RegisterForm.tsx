@@ -78,7 +78,7 @@ export function RegisterForm() {
 
     return (
         <form
-            className="flex flex-col justify-center mt-14 pb-14"
+            className="flex flex-col justify-center mt-14"
             onSubmit={handleSubmit(createUser)}
         >
             <div className="flex flex-col mx-auto gap-7">
