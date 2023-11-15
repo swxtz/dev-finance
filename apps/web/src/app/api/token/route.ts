@@ -6,6 +6,6 @@ export async function GET(req: NextRequest) {
 
     const token = await getToken({ req, secret });
     console.log("JSON Web Token", token);
-    return NextResponse.json({ token: token});
+    return NextResponse;
 
 }

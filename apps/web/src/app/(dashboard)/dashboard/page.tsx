@@ -29,6 +29,9 @@ export default async function Dashboard() {
     // const balance = await getBalance();
 
     // console.log(balance);
+
+    const token = await fetch("http://localhost:3000/api/token");
+    console.log(token);
     await getBalance();
     return (
         <main className="mx-32">
@@ -41,7 +44,8 @@ export default async function Dashboard() {
             </div>
 
             <div className="mt-16">
-                <NewTransactionModal />
+                {/* <NewTransactionModal /> */}
+                <span>asdqda</span>
             </div>
 
             <GetToken />
