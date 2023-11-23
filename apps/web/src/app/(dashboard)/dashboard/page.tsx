@@ -1,9 +1,8 @@
 
-import { MoneyWrapper } from "@/components/Dashboard/MoneyWrapper/MoneyWrapper";
-import { cookies } from "next/headers";
 import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal/NewTransactionModal";
 import { Sair } from "@/components/Sair";
-import { useEffect, useState } from "react";
+import { getServerSession } from "next-auth";
+import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // async function getBalance() {
 //     // const token =
@@ -22,21 +21,12 @@ import { useEffect, useState } from "react";
 //     // console.log(data1);
 // }
 
-async function getToken() {
-    const cookieStore = cookies();
-    const token = await cookieStore.get("token");
-   
-    if (!token) {
-        return;
-    }
 
-    return token;
-
-} 
 
 export default async function Dashboard() {
-    const token = await getToken();
-    console.log(token);
+    const session = await getServerSession(nextAuthOptions);
+
+    console.log(session);
     return (
         <main className="mx-32">
             <div className="mt-20">
@@ -58,6 +48,7 @@ export default async function Dashboard() {
             <div className="mt-16">
                 <NewTransactionModal /> 
                 <Sair />
+                {session.user}
             </div>
         </main>
     );
