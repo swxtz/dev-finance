@@ -26,7 +26,7 @@ import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 export default async function Dashboard() {
     const session = await getServerSession(nextAuthOptions);
 
-    console.log(session);
+    console.log(session?.token);
     return (
         <main className="mx-32">
             <div className="mt-20">
@@ -48,7 +48,7 @@ export default async function Dashboard() {
             <div className="mt-16">
                 <NewTransactionModal /> 
                 <Sair />
-                {session.user}
+                <p>{session?.token}</p>
             </div>
         </main>
     );
