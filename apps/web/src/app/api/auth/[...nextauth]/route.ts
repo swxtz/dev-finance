@@ -1,29 +1,30 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import axios from "axios";
 
-const apiUrl = process.env.API_URL || "";
+const apiUrl = process.env.API_URL;
 
 const nextAuthOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: "credentials",
             credentials: {
-                email: { label: "email", type: "text" },
-                password: { label: "password", type: "password" },
+                email: { label: "email", type: "text"},
+                password: { label: "password", type: "password"}
             },
 
             async authorize(credentials) {
                 const response = await fetch(`${apiUrl}/auth`, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         email: credentials?.email,
-                        password: credentials?.password,
-                    }),
+                        password: credentials?.password
+                    })
                 });
+
 
                 const user = await response.json();
 
@@ -32,32 +33,14 @@ const nextAuthOptions: NextAuthOptions = {
                 }
 
                 return null;
-            },
-        }),
+            }
+        })
     ],
-
     pages: {
-        signIn: "/login",
-    },
-
-    secret: process.env.NEXTAUTH_SECRET,
-
-    session: {
-        maxAge: 30 * 24 * 60 * 60, // 30 days
-        strategy: "jwt",
-    },
-
-    callbacks: {
-        async jwt({ token }) {
-            return { ...token };
-        },
-        async session({ session, token }) {
-            session.user = token;
-            return session;
-        },
-    },
+        "signIn": "/login"
+    }
 };
 
 const handler = NextAuth(nextAuthOptions);
 
-export { handler as GET, handler as POST, nextAuthOptions };
+export { handler as GET, handler as POST };
