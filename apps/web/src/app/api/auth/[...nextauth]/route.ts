@@ -5,7 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 const apiUrl = process.env.API_URL;
 
-export const nextAuthOptions: NextAuthOptions = {
+const nextAuthOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: "credentials",
@@ -57,4 +57,4 @@ export const nextAuthOptions: NextAuthOptions = {
 
 const handler = NextAuth(nextAuthOptions);
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, nextAuthOptions };
