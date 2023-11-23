@@ -1,4 +1,3 @@
-
 import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal/NewTransactionModal";
 import { Sair } from "@/components/Sair";
 import { getServerSession } from "next-auth";
@@ -20,8 +19,6 @@ import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 //     // const data1 = await response.json();
 //     // console.log(data1);
 // }
-
-
 
 export default async function Dashboard() {
     const session = await getServerSession(nextAuthOptions);
@@ -46,7 +43,7 @@ export default async function Dashboard() {
             </div>
 
             <div className="mt-16">
-                <NewTransactionModal /> 
+                <NewTransactionModal />
                 <Sair />
                 <p>{session?.token}</p>
             </div>

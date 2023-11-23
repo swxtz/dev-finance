@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -13,7 +14,7 @@ export const nextAuthOptions: NextAuthOptions = {
                 password: { label: "password", type: "password"}
             },
 
-            async authorize(credentials) {
+            async authorize(credentials, req) {
                 const response = await fetch(`${apiUrl}/auth`, {
                     method: "POST",
                     headers: {
