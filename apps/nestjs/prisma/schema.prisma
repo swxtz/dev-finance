@@ -21,6 +21,7 @@ model User {
     lastName     String  @map("last_name")
     passwordHash String  @map("password_hash")
     avatarUrl    String? @map("avatar_url")
+    premium      Boolean @default(false)
 
     userType UserType[] @default([USER]) @map("user_type")
 
