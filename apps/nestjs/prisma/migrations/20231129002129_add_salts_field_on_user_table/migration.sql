@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "salts" INTEGER NOT NULL DEFAULT 0;

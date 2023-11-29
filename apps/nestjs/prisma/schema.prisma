@@ -22,6 +22,7 @@ model User {
     passwordHash String  @map("password_hash")
     avatarUrl    String? @map("avatar_url")
     premium      Boolean @default(false)
+    salts        Int     @default(0)
 
     userType UserType[] @default([USER]) @map("user_type")
 
