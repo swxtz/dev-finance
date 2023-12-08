@@ -25,6 +25,7 @@ export class UsersService {
                     lastName: data.lastName,
                     email: data.email,
                     passwordHash: await argon.hash(data.password),
+                    salts: 0,
                     balance: {
                         create: {
                             income: 0,

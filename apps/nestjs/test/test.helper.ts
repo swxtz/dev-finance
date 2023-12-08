@@ -13,7 +13,11 @@ export async function cleanDB() {
     console.time("delete users 🗑️");
     try {
         await Promise.all([
-            await prisma.user.delete({ where: { email: usersEmail[0] } }),
+            await prisma.user.delete({
+                where: { email: usersEmail[0] },
+                include: { balance: true, Transactions: true },
+            }),
+            await prisma.balance.delete({ where: { '' } });
         ]);
     } catch (error) {
         console.log("");

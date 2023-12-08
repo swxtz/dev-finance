@@ -82,10 +82,11 @@ describe("UsersController", () => {
         });
 
         it("should be posible create user", async () => {
-            await request(app.getHttpServer())
+            const response = await request(app.getHttpServer())
                 .post("/users")
-                .send(user[0])
-                .expect(201);
+                .send(user[0]);
+
+            expect(response.status).toBe(201);
         });
 
         it("should not be posible create user without email", async () => {
