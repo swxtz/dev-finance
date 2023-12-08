@@ -17,7 +17,6 @@ export async function cleanDB() {
                 where: { email: usersEmail[0] },
                 include: { balance: true, Transactions: true },
             }),
-            await prisma.balance.delete({ where: { '' } });
         ]);
     } catch (error) {
         console.log("");

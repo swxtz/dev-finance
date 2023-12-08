@@ -86,6 +86,8 @@ describe("UsersController", () => {
                 .post("/users")
                 .send(user[0]);
 
+            console.log(response.body);
+
             expect(response.status).toBe(201);
         });
 
