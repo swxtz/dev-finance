@@ -81,16 +81,6 @@ describe("UsersController", () => {
             await cleanDB();
         });
 
-        it("should be posible create user", async () => {
-            const response = await request(app.getHttpServer())
-                .post("/users")
-                .send(user[0]);
-
-            console.log(response.body);
-
-            expect(response.status).toBe(201);
-        });
-
         it("should not be posible create user without email", async () => {
             await request(app.getHttpServer())
                 .post("/users")
@@ -124,6 +114,23 @@ describe("UsersController", () => {
                 .post("/users")
                 .send(user[5])
                 .expect(400);
+        });
+    });
+
+    describe("POST /users", async () => {
+        beforeEach(async () => {
+            await cleanDB();
+        });
+
+        afterEach(async () => {
+            await cleanDB();
+        });
+
+        it("should be posible create user", async () => {
+            await request(app.getHttpServer())
+                .post("/users")
+                .send(user[0])
+                .expect(201);
         });
     });
 
