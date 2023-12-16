@@ -1,6 +1,7 @@
 import { HomepageButtons } from "@/components/HomepageButtons/HomepageButtons";
 import { LoginIcon } from "@/icons/LogInIcon";
 import { LogoIcons } from "@/icons/LogoIcons";
+
 import Link from "next/link";
 
 export default function Home() {
