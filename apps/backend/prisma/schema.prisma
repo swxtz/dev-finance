@@ -40,7 +40,8 @@ enum UserType {
 }
 
 model Balance {
-    id String @id @default(cuid())
+    id         String @id @default(cuid())
+    emailOwner String @unique @map("email_owner")
 
     income  Float
     expense Float

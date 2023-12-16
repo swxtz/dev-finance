@@ -28,6 +28,7 @@ export class UsersService {
                     salts: 0,
                     balance: {
                         create: {
+                            emailOwner: data.email,
                             income: 0,
                             expense: 0,
                             balance: 0,

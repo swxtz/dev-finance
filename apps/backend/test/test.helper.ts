@@ -13,9 +13,14 @@ export async function cleanDB() {
     console.time("delete users 🗑️");
     try {
         await Promise.all([
+            await prisma.balance.delete({
+                where: { emailOwner: usersEmail[0] },
+            }),
+        ]);
+
+        await Promise.all([
             await prisma.user.delete({
                 where: { email: usersEmail[0] },
-                include: { balance: true, Transactions: true },
             }),
         ]);
     } catch (error) {
@@ -48,4 +53,15 @@ export async function getJwt(email: string, password: string): Promise<string> {
     console.log(response.body);
 
     return response.body.token;
+}
+
+export async function sleepTest(millis: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, millis));
+}
+
+
+
+// Todo: fazer uam funcção para deletar usuario por email.
+export async function deleteUserByEmail() {
+
 }

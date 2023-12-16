@@ -9,7 +9,12 @@ type User = {
     avatarUrl: string;
 };
 
-import { cleanDB, createNestAppInstance, getJwt } from "test/test.helper";
+import {
+    cleanDB,
+    createNestAppInstance,
+    getJwt,
+    sleepTest,
+} from "test/test.helper";
 
 const user: User[] = [
     {
@@ -127,10 +132,22 @@ describe("UsersController", () => {
         });
 
         it("should be posible create user", async () => {
-            await request(app.getHttpServer())
+            const localUser: User = {
+                email: "local@user.com",
+                firstName: "Local",
+                lastName: "User",
+                avatarUrl:
+                    "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50",
+                password: "12345678",
+            };
+
+            const res = await request(app.getHttpServer())
                 .post("/users")
-                .send(user[0])
-                .expect(201);
+                .send(localUser);
+
+            console.log(res);
+
+            expect(res.status).toBe(201);
         });
     });
 
@@ -144,6 +161,8 @@ describe("UsersController", () => {
         });
 
         it("should be posible get users", async () => {
+            await sleepTest(3000);
+
             await request(app.getHttpServer())
                 .post("/users")
                 .send(user[0])
