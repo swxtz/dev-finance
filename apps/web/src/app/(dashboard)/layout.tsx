@@ -1,10 +1,10 @@
 import { getServerSession } from "next-auth";
 import { ReactNode } from "react";
-import { nextAuthOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/Dashboard/Header/Header";
 import { Poppins } from "next/font/google";
+import nextAuthOptions from "../api/auth/[...nextauth]/provider";
 
 const poppins = Poppins({
     weight: ["400", "500", "700"],

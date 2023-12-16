@@ -1,7 +1,7 @@
+import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
 import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal/NewTransactionModal";
 import { Sair } from "@/components/Sair";
 import { getServerSession } from "next-auth";
-import { nextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // async function getBalance() {
 //     // const token =
