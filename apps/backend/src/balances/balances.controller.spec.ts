@@ -1,5 +1,5 @@
 import { INestApplication } from "@nestjs/common";
-import { createNestAppInstance } from "test/test.helper";
+import { createNestAppInstance, deleteUserByEmail } from "test/test.helper";
 import request from "supertest";
 import { IUser } from "@/users/dtos/create-user-dtos";
 
@@ -34,10 +34,13 @@ describe("BalancesController", () => {
                     password: localUser.password,
                 });
 
-            await request(app.getHttpServer())
+            const requestToken = await request(app.getHttpServer())
                 .get("/balance")
-                .set("Authorization", `Bearer ${responseToken.body.token}`)
-                .expect(200);
+                .set("Authorization", `Bearer ${responseToken.body.token}`);
+
+            await deleteUserByEmail(localUser.email);
+
+            expect(requestToken.statusCode).toBe(200);
         });
     });
 });
