@@ -13,3 +13,5 @@ export class SignInDto extends createZodDto(schema) {
     @ApiProperty()
     password: string;
 }
+
+export type IAuth = z.infer<typeof schema>;
