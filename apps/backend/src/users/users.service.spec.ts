@@ -73,10 +73,9 @@ describe("UsersService", () => {
         });
 
         // it("should not create a user with empty email", async () => {
-        //     await service.create(user[0]);
-
         //     const result = await service.create(user[0]);
-        //     expect(result.message).toBe(400);
+
+        //     expect(result).toReturn();
         // });
     });
 });

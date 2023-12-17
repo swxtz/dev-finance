@@ -14,7 +14,6 @@ import {
     createNestAppInstance,
     deleteUserByEmail,
     getJwt,
-    sleepTest,
 } from "test/test.helper";
 
 const user: User[] = [
@@ -162,8 +161,6 @@ describe("UsersController", () => {
         });
 
         it("should be posible get users", async () => {
-            await sleepTest(3000);
-
             await request(app.getHttpServer())
                 .post("/users")
                 .send(user[0])

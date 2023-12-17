@@ -35,12 +35,4 @@ export class UsersController {
         const token = this.jwtUtils.getToken(jwt);
         return this.usersService.find(token);
     }
-
-    // @Get("balance")
-    // @UseGuards(AuthGuard)
-    // @ApiBearerAuth("jwt")
-    // async getBalance(@Headers("Authorization") jwt: any) {
-    //     const token = this.jwtUtils.getToken(jwt);
-    //     return this.usersService.getBalance(token);
-    // }
 }
