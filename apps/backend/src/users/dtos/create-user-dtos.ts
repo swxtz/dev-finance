@@ -22,3 +22,5 @@ export class CreateUserDto extends createZodDto(schema) {
     @ApiProperty()
     avatarUrl: string;
 }
+
+export type IUser = z.infer<typeof schema>;
