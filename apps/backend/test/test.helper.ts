@@ -59,9 +59,7 @@ export async function sleepTest(millis: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, millis));
 }
 
-
-
-// Todo: fazer uam funcção para deletar usuario por email.
-export async function deleteUserByEmail() {
-
+export async function deleteUserByEmail(email: string) {
+    await prisma.balance.delete({ where: { emailOwner: email } });
+    await prisma.user.delete({ where: { email } });
 }

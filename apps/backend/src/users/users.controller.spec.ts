@@ -12,6 +12,7 @@ type User = {
 import {
     cleanDB,
     createNestAppInstance,
+    deleteUserByEmail,
     getJwt,
     sleepTest,
 } from "test/test.helper";
@@ -145,7 +146,7 @@ describe("UsersController", () => {
                 .post("/users")
                 .send(localUser);
 
-            console.log(res);
+            await deleteUserByEmail(localUser.email);
 
             expect(res.status).toBe(201);
         });
