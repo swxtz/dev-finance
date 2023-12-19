@@ -6,9 +6,11 @@ import { UtilsModule } from "./utils/utils.module";
 import { TransactionsModule } from "./transactions/transactions.module";
 import { BalancesModule } from "./balances/balances.module";
 import { UploadsModule } from "./uploads/uploads.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
     imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
         PrismaModule,
         UsersModule,
         AuthModule,
