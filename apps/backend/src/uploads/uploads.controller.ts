@@ -25,24 +25,24 @@ export class UploadsController {
             properties: {
                 file: {
                     type: "image",
-                    format: "jpeg",
+                    format: "png",
                 },
             },
         },
     })
     @Post()
     @UseInterceptors(FileInterceptor("file"))
-    uploadFile(
+    async uploadFile(
         @UploadedFile(
             new ParseFilePipe({
                 validators: [
                     new MaxFileSizeValidator({ maxSize }),
-                    new FileTypeValidator({ fileType: "image/jpeg" }),
+                    new FileTypeValidator({ fileType: "image/png" }),
                 ],
             }),
         )
         file: Express.Multer.File,
     ) {
-        console.log(file);
+        await this.uploadsService.uploadFile(file.originalname, file.buffer);
     }
 }
