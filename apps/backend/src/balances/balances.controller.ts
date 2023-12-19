@@ -5,7 +5,7 @@ import { UtilsService } from "@/utils/utils.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 @ApiTags("Balances")
-@ApiBearerAuth("JWT")
+@ApiBearerAuth()
 @Controller("balance")
 export class BalancesController {
     constructor(

@@ -5,6 +5,7 @@ import { AuthModule } from "./auth/auth.module";
 import { UtilsModule } from "./utils/utils.module";
 import { TransactionsModule } from "./transactions/transactions.module";
 import { BalancesModule } from "./balances/balances.module";
+import { UploadsModule } from "./uploads/uploads.module";
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { BalancesModule } from "./balances/balances.module";
         UtilsModule,
         TransactionsModule,
         BalancesModule,
+        UploadsModule,
     ],
     controllers: [],
     providers: [],

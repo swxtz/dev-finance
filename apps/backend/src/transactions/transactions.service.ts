@@ -73,6 +73,7 @@ export class TransactionsService {
         return `This action returns a #${id} transaction`;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     update(id: number, updateTransactionDto: UpdateTransactionDto) {
         return `This action updates a #${id} transaction`;
     }
