@@ -42,5 +42,15 @@ describe("BalancesController", () => {
 
             expect(requestToken.statusCode).toBe(200);
         });
+
+        it("should be not able to get balance with invalid authorization", async () => {
+            const token =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbHFoazU1NWYwMDAwc2JtbWpxOWprMmRiIiwiZmlyc3ROYW1lIjoiR3VzdGF2byIsImxhc3ROYW1lIjoiTWVuZG9uw6dhIiwiYXZhdGFyVXJsIjpudWxsLCJlbWFpbCI6ImpvaG4uZG9lQHRlc3QuY29tIiwiY3JlYXRlZEF0IjoiMjAyMy0xMi0yM1QwNDoyNTo0NC4wMTlaIiwidXBkYXRlZEF0IjoiMjAyMy0xMi0yM1QwNDoyNTo0NC4wMTlaIiwiaWF0IjoxNzAzMzA2NDQyLCJleHAiOjE3MDMDJ9.F92_XRp_exS-_aM5nipp3xLmaUcnfyJIors9dbb7Go4";
+
+            const requestToken = await request(app.getHttpServer())
+                .get("/balance")
+                .set("Authorization", `Bearer ${token}`);
+            expect(requestToken.statusCode).toBe(401);
+        });
     });
 });

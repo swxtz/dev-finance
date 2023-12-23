@@ -168,10 +168,15 @@ describe("UsersController", () => {
 
             const token = await getJwt(user[0].email, user[0].password);
 
-            await request(app.getHttpServer())
+            // Todo: remover depois
+            console.log(`get user info: ${token}`);
+
+            const response = await request(app.getHttpServer())
                 .get("/users")
-                .auth(token, { type: "bearer" })
-                .expect(200);
+                .auth(token, { type: "bearer" });
+
+            console.log(response.body);
+            expect(response.statusCode).toBe(200);
         });
 
         it("should not be posible get users without token", async () => {

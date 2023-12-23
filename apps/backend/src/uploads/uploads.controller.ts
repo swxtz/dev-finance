@@ -1,22 +1,29 @@
 import {
     Controller,
     FileTypeValidator,
+    Headers,
     MaxFileSizeValidator,
     ParseFilePipe,
     Post,
     UploadedFile,
+    UseGuards,
     UseInterceptors,
 } from "@nestjs/common";
 import { UploadsService } from "./uploads.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBody, ApiConsumes, ApiTags } from "@nestjs/swagger";
+import { AuthGuard } from "@/auth/auth.guard";
+import { UtilsService } from "@/utils/utils.service";
 
 const maxSize = 1024 * 1024 * 3; // 3 MB
 
 @Controller("uploads")
 @ApiTags("Uploads")
 export class UploadsController {
-    constructor(private readonly uploadsService: UploadsService) {}
+    constructor(
+        private readonly uploadsService: UploadsService,
+        private jwtUtils: UtilsService,
+    ) {}
 
     @ApiConsumes("multipart/form-data")
     @ApiBody({
@@ -31,6 +38,7 @@ export class UploadsController {
         },
     })
     @Post()
+    @UseGuards(AuthGuard)
     @UseInterceptors(FileInterceptor("file"))
     async uploadFile(
         @UploadedFile(
@@ -42,7 +50,10 @@ export class UploadsController {
             }),
         )
         file: Express.Multer.File,
+
+        @Headers("Authorization") jwt: any,
     ) {
-        await this.uploadsService.uploadFile(file.originalname, file.buffer);
+        const token = this.jwtUtils.getToken(jwt);
+        await this.uploadsService.uploadFile(file.buffer, token);
     }
 }
