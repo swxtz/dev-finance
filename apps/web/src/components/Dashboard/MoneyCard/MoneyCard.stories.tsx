@@ -9,9 +9,9 @@ export default {
 } as Meta;
 
 export const Default: StoryObj = {
-    render: () => <MoneyCard label="Entradas" icon={<IncomeIcon />} value="17.400,00" />
+    render: () => <MoneyCard label="Entradas" icon={<IncomeIcon />} value={1740000} />
 };
 
 export const Green: StoryObj = {
-    render: () => <MoneyCard color="green" label="Entradas" icon={<ExpenseIcon />} value="17.400,00" />
+    render: () => <MoneyCard color="green" label="Entradas" icon={<ExpenseIcon />} value={1740000} />
 };
