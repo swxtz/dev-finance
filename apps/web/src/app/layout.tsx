@@ -8,7 +8,7 @@ import { Roboto } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 
 import { Analytics } from "@vercel/analytics/react";
-
+import { ThemeProvider } from "@/providers/theme-provider";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -31,10 +31,16 @@ export default function RootLayout({
                 className={`${roboto.className} min-h-screen scrollbar scrollbar-thumb-neutral-900 scrollbar-track-neutral-800`}
             >
                 <NextAuthSessionProvider>
-                    {children}
-                    <Analytics />
-                    <ToastContainer autoClose={5000} hideProgressBar={false} theme="dark" />
-                    {/* <Footer /> */}
+                    <ThemeProvider attribute="class" defaultTheme="system">
+                        {children}
+                        <Analytics />
+                        <ToastContainer
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            theme="dark"
+                        />
+                        {/* <Footer /> */}
+                    </ThemeProvider>
                 </NextAuthSessionProvider>
             </body>
         </html>

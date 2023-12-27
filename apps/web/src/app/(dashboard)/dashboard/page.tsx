@@ -1,5 +1,6 @@
 import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
 import { MoneyWrapper } from "@/components/Dashboard/MoneyWrapper/MoneyWrapper";
+import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal";
 import { getServerSession } from "next-auth";
 
 const apiUrl = process.env.API_URL;
@@ -47,7 +48,7 @@ export default async function Dashboard() {
             </div>
 
             <div className="mt-16">
-                {/* <NewTransactionModal /> */}
+                <NewTransactionModal />
                 
             </div>
         </main>
