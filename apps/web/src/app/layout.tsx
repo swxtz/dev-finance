@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         locale: "pt_BR",
         url: "https://dev-finance-pi-six.vercel.app/",
         title: "Dev-Finance",
-        description: "Gerenciador de finanças pessoais",
+        description: "Gerencie suas finanças de forma simples e prática.",
         images: [
             {
                 url: "https://dev-finance-pi-six.vercel.app/api/og",
