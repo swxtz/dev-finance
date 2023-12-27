@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         type: "website",
         locale: "pt_BR",
         url: "https://dev-finance-pi-six.vercel.app/",
-        title: "Dev-Finance",
+        title: "Dev.Finance",
         description: "Gerencie suas finanças de forma simples e prática.",
         images: [
             {
