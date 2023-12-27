@@ -1,51 +1,56 @@
 import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
+import { MoneyWrapper } from "@/components/Dashboard/MoneyWrapper/MoneyWrapper";
 import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal/NewTransactionModal";
 import { Sair } from "@/components/Sair";
 import { getServerSession } from "next-auth";
 
-// async function getBalance() {
-//     // const token =
-//     await fetch(`${apiUrl}/api/token`);
+const apiUrl = process.env.API_URL;
 
-//     // if (!token) {
-//     //     return;
-//     // }
-//     // console.log(token);
-//     // const response = await fetch(`${apiUrl}/users/balance`, {
-//     //     headers: {
-//     //         "Authorization": `Bearer ${localStorage.getItem(token.sub || "")}`
-//     //     }
-//     // });
-//     // const data1 = await response.json();
-//     // console.log(data1);
-// }
+interface IBalance {
+    id: string;
+    emailOwner: string;
+    income: number;
+    expense: number;
+    balance: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+async function getBalance(token: string): Promise<IBalance> {
+    const response = await fetch(`${apiUrl}/balance`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const balance = await response.json();
+    return balance;
+}
 
 export default async function Dashboard() {
     const session = await getServerSession(nextAuthOptions);
 
-    console.log(session?.token);
+    const balance = await getBalance(session!.token);
     return (
         <main className="mx-32">
             <div className="mt-20">
-                {/* {token ? (
+                {balance ? (
                     <MoneyWrapper
-                        income="17.400,00"
-                        expense="1.259,00"
-                        balance="16.141,00"
+                        income={balance.income}
+                        expense={balance.expense}
+                        balance={balance.balance}
                     />
                 ) : (
                     <MoneyWrapper
-                        income="17.400,00"
-                        expense="1.259,00"
-                        balance="16.141,00"
+                        income={0}
+                        expense={0}
+                        balance={0}
                     />
-                )} */}
+                )}
             </div>
 
             <div className="mt-16">
                 <NewTransactionModal />
                 <Sair />
-                <p>{session?.token}</p>
             </div>
         </main>
     );

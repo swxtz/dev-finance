@@ -5,9 +5,9 @@ import { IncomeIcon } from "../../../icons/IncomeIcon";
 import { DollarIcon } from "../../../icons/DollarIcon";
 
 interface MoneyWrapperProps {
-    income: string;
-    expense: string;
-    balance: string;
+    income: number;
+    expense: number;
+    balance: number;
 }
 
 export function MoneyWrapper({ income, expense, balance }: MoneyWrapperProps) {

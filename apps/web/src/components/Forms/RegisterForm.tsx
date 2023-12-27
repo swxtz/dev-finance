@@ -64,7 +64,7 @@ export function RegisterForm() {
             })
             .then(() => {
                 toast.success("Conta criada com sucesso");
-                console.log("criou");
+                // setInterval()
             })
 
             .catch((err) => {

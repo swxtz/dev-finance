@@ -1,4 +1,3 @@
-
 import { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
@@ -20,10 +19,19 @@ interface MoneyCardProps {
     color?: "zinc" | "green";
     label: string;
     icon: ReactNode;
-    value?: string;
+    value?: number;
 }
 
-export function MoneyCard({ color = "zinc", label, icon, value = "0" }: MoneyCardProps) {
+export function MoneyCard({
+    color = "zinc",
+    label,
+    icon,
+    value = 0,
+}: MoneyCardProps) {
+    const formattedValue = Intl.NumberFormat("pt-br", {
+        currency: "BRL",
+        style: "currency",
+    }).format(value);
     return (
         <div className={card({ color })}>
             <div className="p-8">
@@ -32,7 +40,12 @@ export function MoneyCard({ color = "zinc", label, icon, value = "0" }: MoneyCar
                     {icon}
                 </div>
                 <div className="">
-                    <span className="text-3xl font-">R$ {value}</span>
+                    <span className="text-3xl font-">
+                        R${" "}
+                        <span>
+                            {formattedValue.replace("R$", "").replace(" ", "")}
+                        </span>
+                    </span>
                 </div>
             </div>
         </div>
