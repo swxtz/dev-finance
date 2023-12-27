@@ -1,6 +1,5 @@
 import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
 import { MoneyWrapper } from "@/components/Dashboard/MoneyWrapper/MoneyWrapper";
-import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal/NewTransactionModal";
 import { Sair } from "@/components/Sair";
 import { getServerSession } from "next-auth";
 
@@ -49,7 +48,7 @@ export default async function Dashboard() {
             </div>
 
             <div className="mt-16">
-                <NewTransactionModal />
+                {/* <NewTransactionModal /> */}
                 <Sair />
             </div>
         </main>
