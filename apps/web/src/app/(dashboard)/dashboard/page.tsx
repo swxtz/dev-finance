@@ -29,6 +29,7 @@ export default async function Dashboard() {
     const session = await getServerSession(nextAuthOptions);
 
     const balance = await getBalance(session!.token);
+
     return (
         <main className="mx-32">
             <div className="mt-20">
@@ -40,7 +41,7 @@ export default async function Dashboard() {
                     />
                 ) : (
                     <MoneyWrapper
-                        income={0}
+                        income={10}
                         expense={0}
                         balance={0}
                     />
