@@ -5,9 +5,12 @@ import {
     DialogTrigger,
     DialogContent,
     DialogHeader,
+    DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { DatePicker } from "../DatePicker";
+import { Button } from "@/components/ui/button";
 
 export function NewTransactionModal() {
     return (
@@ -31,13 +34,26 @@ export function NewTransactionModal() {
                             </div>
                             <div className="flex flex-col">
                                 <Input type="text" placeholder="Valor" />
-                                <label htmlFor="" className="text-sm mx-auto py-4 text-gray-400">
+                                <label
+                                    htmlFor=""
+                                    className="text-sm mx-auto py-4 text-gray-400"
+                                >
                                     Use o sinal - (negativo) para despesas e ,
                                     (vírgula para casas decimais)
                                 </label>
                             </div>
-                            <div className="">
-                                <Input type="date" placeholder="DD/MM/YYYY" />
+                            <div className="w-full">
+                                <DatePicker />
+                            </div>
+                            <div className="flex flex-row justify-between pt-8">
+                                <DialogClose asChild>
+                                    <Button variant="cancel" className="px-20">
+                                        Cancelar
+                                    </Button>
+                                </DialogClose>
+                                <Button variant="proceed" className="px-20">
+                                    Adicionar
+                                </Button>
                             </div>
                         </div>
                     </form>
