@@ -1,21 +1,6 @@
 version: "3.5"
 
 services:
-  db-postgres:
-    container_name: postgres-finance
-    image: bitnami/postgresql:15.4.0
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRESQL_USERNAME=dev
-      - POSTGRESQL_PASSWORD=postgres
-      - POSTGRESQL_DATABASE=finance
-    volumes:
-      - postgres_data:/bitnami/postgresql
-
-    networks:
-      - postgres-compose-network
-
   db-cockroachdb:
     container_name: cockroachdb-finance
     image: cockroachdb/cockroach:v23.1.13
