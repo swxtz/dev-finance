@@ -31,7 +31,7 @@ const loginFormSchema = z.object({
 type LoginFormData = z.infer<typeof loginFormSchema>;
 
 export function LoginForm() {
-    const {
+    const { 
         register,
         handleSubmit,
         formState: { errors },
