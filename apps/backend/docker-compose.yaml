@@ -1,7 +1,7 @@
 version: "3.5"
 
 services:
-  db:
+  db-postgres:
     container_name: postgres-finance
     image: bitnami/postgresql:15.4.0
     ports:
@@ -16,6 +16,17 @@ services:
     networks:
       - postgres-compose-network
 
+  db-cockroachdb:
+    container_name: cockroachdb-finance
+    image: cockroachdb/cockroach:v23.1.13
+    ports:
+      - 26257:26257
+      - 9001:8080
+    environment:
+      - COCKROACH_DATABASE=finance
+      - COCKROACH_USER=dev
+      - COCKROACH_PASSWORD=cockroach
+    command: start-single-node 
 
   pgadmin-compose:
     image: dpage/pgadmin4
@@ -25,7 +36,7 @@ services:
     ports:
       - "9000:80"
     depends_on:
-      - db
+      - db-postgres
     networks:
       - postgres-compose-network
 
