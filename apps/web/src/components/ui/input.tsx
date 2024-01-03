@@ -1,9 +1,19 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { FormField, FormItem, FormControl } from "./form";
+import { Control } from "react-hook-form";
 
 export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+export interface InputControlledProps extends InputProps {
+    name: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    control: Control<any, any>;
+}
+
+
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ({ className, type, ...props }, ref) => {
@@ -22,4 +32,31 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
-export { Input };
+const InputControlled = (props: InputControlledProps) => {
+    return (
+        <FormField
+            control={props.control}
+            name={props.name}
+            render={({ field, ...props}) => (
+                <FormItem>
+                    <FormControl>
+                        <div className="flex flex-col">
+                            <Input
+                                type="text"
+                                placeholder="Descrição"
+                                className="outline-none"
+                                {...field}
+                                {...props}
+                            />
+                        </div>
+                    </FormControl>
+                </FormItem>
+            )}
+        />
+    );
+};
+
+export default {
+    Uncontrolled: Input,
+    Controlled: React.memo(InputControlled)
+};

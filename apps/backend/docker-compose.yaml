@@ -13,18 +13,6 @@ services:
       - COCKROACH_PASSWORD=cockroach
     command: start-single-node 
 
-  pgadmin-compose:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "postgres@email.com"
-      PGADMIN_DEFAULT_PASSWORD: "postgres"
-    ports:
-      - "9000:80"
-    depends_on:
-      - db-postgres
-    networks:
-      - postgres-compose-network
-
 volumes:
   postgres_data:
     driver: local

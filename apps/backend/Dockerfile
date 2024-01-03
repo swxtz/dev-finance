@@ -1,18 +1,15 @@
 FROM node:18-alpine
+ENV NODE_ENV production
 
 WORKDIR /usr/src/app
 
 COPY . .
 COPY ./.env.prod ./.env
 
-COPY ./yarn.lock ./yarn.lock
+RUN rm -rf yarn.lock
 
-RUN npm install -g corepack --quiet --no-optional --no-fund --loglevel=error
-
-RUN yarn --network-timeout 100000
-
-RUN yarn build
+RUN npm ci --only=production
 
 EXPOSE 3333
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "run", "start" ]

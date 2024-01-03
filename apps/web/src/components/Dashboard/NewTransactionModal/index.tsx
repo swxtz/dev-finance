@@ -7,7 +7,7 @@ import {
     DialogHeader,
     DialogClose,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -30,7 +30,6 @@ import { ptBR } from "date-fns/locale";
 import { getSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
-
 const formSchema = z.object({
     description: z
         .string()
@@ -48,6 +47,8 @@ export function NewTransactionModal() {
     });
 
     function onSubmit({ date, description, value }: formSchemaData) {
+        console.log(date, description, value);
+
         const session = getSession();
         const dateIso = date.toISOString();
 
@@ -79,7 +80,9 @@ export function NewTransactionModal() {
                 if (res.status === 201) {
                     toast.success("Transação criada com sucesso");
                 } else {
-                    toast.error("Erro ao criar nova transação, Tente Novamente!");
+                    toast.error(
+                        "Erro ao criar nova transação, Tente Novamente!",
+                    );
                 }
                 console.log(res);
             });
@@ -103,53 +106,25 @@ export function NewTransactionModal() {
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <div className="flex gap-3 flex-col">
                                 <div className="flex-1">
-                                    <FormField
+                                    <Input.Controlled
                                         control={form.control}
-                                        name="description"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormControl>
-                                                    <div className="flex flex-col">
-                                                        <Input
-                                                            type="text"
-                                                            placeholder="Descrição"
-                                                            className="outline-none"
-                                                            {...field}
-                                                        />
-                                                    </div>
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
+                                        name={"description"}
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <FormField
+                                    <Input.Controlled
+                                        id={"value"}
                                         control={form.control}
                                         name="value"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormControl>
-                                                    <div className="flex flex-col">
-                                                        <Input
-                                                            type="text"
-                                                            placeholder="Valor"
-                                                            {...field}
-                                                        />
-                                                        <label
-                                                            htmlFor=""
-                                                            className="text-sm mx-auto py-4 text-gray-400"
-                                                        >
-                                                            Use o sinal -
-                                                            (negativo) para
-                                                            despesas e ,
-                                                            (vírgula para casas
-                                                            decimais)
-                                                        </label>
-                                                    </div>
-                                                </FormControl>
-                                            </FormItem>
-                                        )}
                                     />
+                                    {/* TODO Arrumar o label */}
+                                    <label
+                                        htmlFor="value"
+                                        className="text-sm mx-auto py-4 text-gray-400"
+                                    >
+                                        Use o sinal - (negativo) para despesas e
+                                        , (vírgula para casas decimais)
+                                    </label>
                                 </div>
                                 <div className="w-full">
                                     <FormField
@@ -201,15 +176,6 @@ export function NewTransactionModal() {
                                                             />
                                                         </PopoverContent>
                                                     </Popover>
-                                                    {/* <div className="pt-4 flex items-center gap-2">
-                <Checkbox
-                    id="today-date"
-                    onChange={(e) => handleUseTodayDate(e)}
-                />
-                <label htmlFor="today-date" className="text-sm text-gray-400">
-                    Use a data de hoje
-                </label>
-            </div> */}
                                                 </FormControl>
                                             </FormItem>
                                         )}
