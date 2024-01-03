@@ -1,9 +1,15 @@
 import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
 import { MoneyWrapper } from "@/components/Dashboard/MoneyWrapper/MoneyWrapper";
 import { NewTransactionModal } from "@/components/Dashboard/NewTransactionModal";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 
 const apiUrl = process.env.API_URL;
+
+export const metadata: Metadata = {
+    title: "Dev.Finance | Dashboard",
+};
+
 
 interface IBalance {
     id: string;
@@ -35,9 +41,9 @@ export default async function Dashboard() {
             <div className="mt-20">
                 {balance ? (
                     <MoneyWrapper
-                        income={balance.income}
-                        expense={balance.expense}
-                        balance={balance.balance}
+                        income={balance.income / 100}
+                        expense={balance.expense / 100}
+                        balance={balance.balance / 100}
                     />
                 ) : (
                     <MoneyWrapper

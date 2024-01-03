@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { DatePickerForm } from "../DatePicker";
+import { DatePicker } from "../DatePicker";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ const formSchema = z.object({
         .string()
         .regex(/^\d+(,\d{2})?$/, "Valor inválido.")
         .max(255, "Máximo de 255 caracteres."),
-    date: z.string().min(10, "Data inválida.").max(10, "Data inválida."),
+    date: z.string().min(10, "Data inválida.").max(10, "Data inválida.").optional(),
 });
 
 type formSchemaData = z.infer<typeof formSchema>;
@@ -74,7 +74,7 @@ export function NewTransactionModal() {
                                 </label>
                             </div>
                             <div className="w-full">
-                                <DatePickerForm />
+                                <DatePicker/>
                             </div>
                             <div className="flex flex-row justify-between pt-8">
                                 <DialogClose asChild>
