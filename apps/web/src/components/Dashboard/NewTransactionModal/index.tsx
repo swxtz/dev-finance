@@ -27,29 +27,63 @@ import {
 } from "@/components/ui/popover";
 
 import { ptBR } from "date-fns/locale";
+import { getSession } from "next-auth/react";
+import { toast } from "react-toastify";
+
+
 const formSchema = z.object({
     description: z
         .string()
         .min(3, "Precisa de no minimo 3 caracteres.")
         .max(255, "Máximo de 255 caracteres."),
-    value: z
-        .string()
-        .regex(/^\d+(,\d{2})?$/, "Valor inválido.")
-        .max(255, "Máximo de 255 caracteres."),
-    date: z
-        .date().transform(date => date.toISOString()),
+    value: z.string().max(255, "Máximo de 255 caracteres."),
+    date: z.date(),
 });
 
 export function NewTransactionModal() {
-
     type formSchemaData = z.infer<typeof formSchema>;
 
     const form = useForm<formSchemaData>({
         resolver: zodResolver(formSchema),
     });
 
-    function onSubmit(values: formSchemaData) {
-        console.log(values);
+    function onSubmit({ date, description, value }: formSchemaData) {
+        const session = getSession();
+        const dateIso = date.toISOString();
+
+        const apiUrl = process.env.API_URL || "http://localhost:3333";
+
+        const isNegative = value.includes("-") || value.startsWith("-");
+        const transactionType = isNegative ? "EXPENSE" : "INCOME";
+
+        const valueWithoutSymbols = value.replace(/\.|,/g, "");
+        const removeNegative = valueWithoutSymbols.replace(/\.|,|-/g, "");
+
+        const formattedValue = Number(removeNegative);
+
+        session.then((token) => {
+            fetch(`${apiUrl}/transactions`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token?.token}`,
+                },
+                body: JSON.stringify({
+                    type: transactionType,
+                    description: description,
+                    name: description,
+                    amount: formattedValue,
+                    date: dateIso,
+                }),
+            }).then((res) => {
+                if (res.status === 201) {
+                    toast.success("Transação criada com sucesso");
+                } else {
+                    toast.error("Erro ao criar nova transação, Tente Novamente!");
+                }
+                console.log(res);
+            });
+        });
     }
 
     return (
@@ -68,19 +102,21 @@ export function NewTransactionModal() {
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <div className="flex gap-3 flex-col">
-                                <div className="flex">
+                                <div className="flex-1">
                                     <FormField
                                         control={form.control}
                                         name="description"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormControl>
-                                                    <Input
-                                                        type="text"
-                                                        placeholder="Descrição"
-                                                        className="outline-none"
-                                                        {...field}
-                                                    />
+                                                    <div className="flex flex-col">
+                                                        <Input
+                                                            type="text"
+                                                            placeholder="Descrição"
+                                                            className="outline-none"
+                                                            {...field}
+                                                        />
+                                                    </div>
                                                 </FormControl>
                                             </FormItem>
                                         )}
@@ -139,6 +175,9 @@ export function NewTransactionModal() {
                                                                     format(
                                                                         field.value,
                                                                         "PPP",
+                                                                        {
+                                                                            locale: ptBR,
+                                                                        },
                                                                     )
                                                                 ) : (
                                                                     <span>
@@ -152,14 +191,13 @@ export function NewTransactionModal() {
                                                             <Calendar
                                                                 mode="single"
                                                                 selected={
-                                                                    field.value
+                                                                    field.value!
                                                                 }
                                                                 onSelect={
                                                                     field.onChange
                                                                 }
                                                                 initialFocus
                                                                 locale={ptBR}
-                                                                
                                                             />
                                                         </PopoverContent>
                                                     </Popover>
@@ -186,13 +224,15 @@ export function NewTransactionModal() {
                                             Cancelar
                                         </Button>
                                     </DialogClose>
-                                    <Button
-                                        variant="proceed"
-                                        className="px-20"
-                                        type="submit"
-                                    >
-                                        Adicionar
-                                    </Button>
+                                    <DialogClose asChild>
+                                        <Button
+                                            variant="proceed"
+                                            className="px-20"
+                                            type="submit"
+                                        >
+                                            Adicionar
+                                        </Button>
+                                    </DialogClose>
                                 </div>
                             </div>
                         </form>
