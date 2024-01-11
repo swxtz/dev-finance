@@ -7,6 +7,7 @@ import { TransactionsModule } from "./transactions/transactions.module";
 import { BalancesModule } from "./balances/balances.module";
 import { UploadsModule } from "./uploads/uploads.module";
 import { ConfigModule } from "@nestjs/config";
+import { EmailsModule } from './emails/emails.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { ConfigModule } from "@nestjs/config";
         TransactionsModule,
         BalancesModule,
         UploadsModule,
+        EmailsModule,
     ],
     controllers: [],
     providers: [],
