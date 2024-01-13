@@ -1,23 +1,20 @@
 import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
 import { apiUrl } from "@/utils/api";
 import { getServerSession } from "next-auth";
+import { DataTable } from "../DataTable";
+import { columns } from "../DataTable/columns";
 
-interface ITransactions {
-    id: string;
-    ownerId: string;
-    name: string;
+export interface ITransactions {
     amount: number;
     description: string;
     date: string;
-    createdAt: string;
-    updatedAt: string;
-    type: string;
 }
 
 async function getTransactions(): Promise<ITransactions[]> {
     const token = await getServerSession(nextAuthOptions);
+    console.log(token);
 
-    const response = await fetch(`${apiUrl}/transactions/me`, {
+    const response = await fetch(`${apiUrl}/transactions`, {
         headers: {
             Authorization: `Bearer ${token?.token}`,
         },
@@ -33,15 +30,7 @@ export async function Transactions() {
     return (
         <div>
             <h1>Transactions</h1>
-            {transactions?.map((transaction) => (
-                <div key={transaction.id}>
-                    <p>{transaction.name}</p>
-                    <p>{transaction.amount}</p>
-                    <p>{transaction.description}</p>
-                    <p>{transaction.date}</p>
-                    <p>{transaction.type}</p>
-                </div>
-            ))}
+            <DataTable columns={columns} data={transactions} />
         </div>
     );
 }
