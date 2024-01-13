@@ -64,6 +64,33 @@ export class TransactionsService {
 
         const transactions = await this.prisma.transaction.findMany({
             where: { ownerId: token.sub },
+            select: {
+                description: true,
+                amount: true,
+                date: true,
+            },
+        });
+
+        return transactions;
+    }
+
+    async findByUserTable(token: any) {
+        const verifyUser = await this.prisma.user.findUnique({
+            where: { id: token.sub },
+            select: { id: true },
+        });
+
+        if (!verifyUser) {
+            throw new HttpException("Unauthorized", 401);
+        }
+
+        const transactions = await this.prisma.transaction.findMany({
+            where: { ownerId: token.sub },
+            select: {
+                description: true,
+                amount: true,
+                date: true,
+            },
         });
 
         return transactions;

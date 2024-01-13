@@ -60,6 +60,14 @@ export class TransactionsController {
         return this.transactionsService.findOne(+id);
     }
 
+    @Get("")
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth("jwt")
+    findByUserTable(@Headers("Authorization") jwt: any) {
+        const token = this.jwtUtils.getToken(jwt);
+        return this.transactionsService.findByUserTable(token);
+    }
+
     @Patch(":id")
     @ApiBearerAuth("jwt")
     update(
