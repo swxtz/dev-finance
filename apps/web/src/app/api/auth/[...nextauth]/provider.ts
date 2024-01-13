@@ -52,6 +52,10 @@ const nextAuthOptions: NextAuthOptions = {
             session = token.user as any;
             return session;
         }
+    },
+
+    jwt: {
+        maxAge: 60 * 60 * 24 * 14 // 14 days
     }
 };
 

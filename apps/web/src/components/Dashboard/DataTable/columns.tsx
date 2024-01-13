@@ -1,20 +1,21 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ITransactions } from "../Transactions";
+import { DataTableHeaderCell } from "../DataTableHeaderCell";
 
 
 
 export const columns: ColumnDef<ITransactions>[] = [
     {
         accessorKey: "description",
-        header: "Descrição",
+        header: () => <DataTableHeaderCell>Descrição</DataTableHeaderCell>,
     },
     {
         accessorKey: "amount",
-        header: "Valor",
+        header: () => <DataTableHeaderCell>Valor</DataTableHeaderCell>,
     },
     {
         accessorKey: "date",
-        header: "Data",
+        header: () => <DataTableHeaderCell>Data</DataTableHeaderCell>,
     },
 ];
