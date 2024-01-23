@@ -11,6 +11,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ReactQueryProvider } from "@/providers/react-query";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -53,6 +55,7 @@ export default function RootLayout({
                         <ThemeProvider attribute="class" defaultTheme="system">
                             {children}
                             <Analytics />
+                            <SpeedInsights />
                             <ToastContainer
                                 autoClose={5000}
                                 hideProgressBar={false}

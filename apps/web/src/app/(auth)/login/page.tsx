@@ -1,5 +1,11 @@
 import { SociaisButtons } from "@/components/Auth/SociaisButtons/SociaisButtons";
 import { LoginForm } from "@/components/Forms/LoginForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Dev.Finance | Login",
+};
+
 
 export default function LoginPage() {
     return (

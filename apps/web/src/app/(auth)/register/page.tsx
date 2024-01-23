@@ -1,5 +1,11 @@
 import { SociaisButtons } from "@/components/Auth/SociaisButtons/SociaisButtons";
 import { RegisterForm } from "@/components/Forms/RegisterForm";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Dev.Finance | Crie sua conta",
+};
+
 
 
 export default function Register() {
