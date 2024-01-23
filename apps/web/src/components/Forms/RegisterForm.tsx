@@ -12,8 +12,7 @@ import { UserIcon } from "@/icons/UserIcon";
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ValidationErrorMessage } from "../ValidationErrorMessege/ValidationErrorMessage";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { IRegisterUser, useMutationPostUser } from "@/hooks/useQueryRegister";
 
 const createUserFormSchema = z
     .object({
@@ -54,25 +53,11 @@ export function RegisterForm() {
         resolver: zodResolver(createUserFormSchema),
     });
 
-    async function createUser(data: any) {
-        await axios
-            .post("http://localhost:3333/users", {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                email: data.email,
-                password: data.password,
-            })
-            .then(() => {
-                toast.success("Conta criada com sucesso");
-                // setInterval()
-            })
+    const { mutate } = useMutationPostUser();
 
-            .catch((err) => {
-                toast.error(err.response.data.message, {
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                });
-            });
+    async function createUser(data: IRegisterUser) {
+        mutate(data);
+        
     }
 
     return (
@@ -197,7 +182,7 @@ export function RegisterForm() {
                     type="submit"
                     className="w-[294px] h-12 bg-green-700 rounded-md font-semibold transition-colors hover:bg-green-800 md:w-96"
                 >
-                    Entrar
+                    Criar conta
                 </button>
                 <Link
                     href="/login"
