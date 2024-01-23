@@ -29,6 +29,7 @@ import {
 import { ptBR } from "date-fns/locale";
 import { getSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const formSchema = z.object({
     description: z
@@ -39,7 +40,14 @@ const formSchema = z.object({
     date: z.date(),
 });
 
+// interface NewTransactionModalProps {
+//     refetch: () => Promise<QueryObserverResult<IBalance, Error>>;
+// }
+
 export function NewTransactionModal() {
+
+    const queryClient = useQueryClient();
+
     type formSchemaData = z.infer<typeof formSchema>;
 
     const form = useForm<formSchemaData>({
@@ -77,6 +85,7 @@ export function NewTransactionModal() {
                 }),
             }).then((res) => {
                 if (res.status === 201) {
+                    queryClient.invalidateQueries({ queryKey: ["balance"] });
                     toast.success("Transação criada com sucesso");
                 } else {
                     toast.error(

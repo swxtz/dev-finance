@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-interface IBalance {
+export interface IBalance {
     id: string;
     emailOwner: string;
     income: number;
