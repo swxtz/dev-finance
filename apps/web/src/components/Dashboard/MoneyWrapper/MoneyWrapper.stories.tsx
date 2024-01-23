@@ -8,6 +8,6 @@ export default {
 
 export const Default: StoryObj = {
     render: () => (
-        <MoneyWrapper income={1740000} expense={125900} balance={1614100} />
+        <MoneyWrapper />
     ),
 };
