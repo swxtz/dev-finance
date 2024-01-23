@@ -68,7 +68,6 @@ export function RegisterForm() {
             })
 
             .catch((err) => {
-                console.log(err.response.data);
                 toast.error(err.response.data.message, {
                     autoClose: 5000,
                     hideProgressBar: false,

@@ -47,7 +47,6 @@ export function NewTransactionModal() {
     });
 
     function onSubmit({ date, description, value }: formSchemaData) {
-        console.log(date, description, value);
 
         const session = getSession();
         const dateIso = date.toISOString();
@@ -84,7 +83,6 @@ export function NewTransactionModal() {
                         "Erro ao criar nova transação, Tente Novamente!",
                     );
                 }
-                console.log(res);
             });
         });
     }

@@ -5,39 +5,10 @@ import { ExpenseIcon } from "../../../icons/ExpenseIcon";
 import { MoneyCard } from "../MoneyCard/MoneyCard";
 import { IncomeIcon } from "../../../icons/IncomeIcon";
 import { DollarIcon } from "../../../icons/DollarIcon";
-import { useQuery } from "@tanstack/react-query";
-import { getSession } from "next-auth/react";
-
-interface IBalance {
-    id: string;
-    emailOwner: string;
-    income: number;
-    expense: number;
-    balance: number;
-    createdAt: string;
-    updatedAt: string;
-}
-
-
-// TODO Trocar url para .env.local
-async function getBalance(): Promise<IBalance> {
-    const token = await getSession();
-    const response = await fetch("http://localhost:3333/balance", {
-        headers: {
-            Authorization: `Bearer ${token?.token}`,
-        },
-    });
-
-    return response.json();
-}
+import { useQueryGetBalance } from "@/hooks/useBalance";
 
 export function MoneyWrapper() {
-    const { data, isLoading, error } = useQuery({
-        queryKey: ["balance"],
-        queryFn: () => getBalance(),
-    });
-
-    console.log(`Money: ${data}`);
+    const { data, isLoading, error } = useQueryGetBalance();
 
     if (error as any)
         return (
@@ -47,10 +18,8 @@ export function MoneyWrapper() {
         );
 
     if (isLoading) {
-        console.log(data);
         return <div>Carregando...</div>;
     }
-    console.log(data);
     return (
         <div className="flex flex-row gap-8 mx-auto w-fit">
             <MoneyCard

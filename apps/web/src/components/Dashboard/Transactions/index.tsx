@@ -12,7 +12,6 @@ export interface ITransactions {
 
 async function getTransactions(): Promise<ITransactions[]> {
     const token = await getServerSession(nextAuthOptions);
-    console.log(token);
 
     const response = await fetch(`${apiUrl}/transactions`, {
         headers: {
@@ -26,7 +25,6 @@ async function getTransactions(): Promise<ITransactions[]> {
 
 export async function Transactions() {
     const transactions = await getTransactions();
-    console.log(transactions);
     return (
         <div>
             <h1>Transactions</h1>

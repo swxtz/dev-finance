@@ -54,7 +54,6 @@ export function LoginForm() {
         if (result?.error) {
             alert("Credenciais invalidas");
             setIsLoading(false);
-            console.log(result);
             return;
         }
 
