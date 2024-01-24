@@ -5,7 +5,7 @@ import { ExpenseIcon } from "../../../icons/ExpenseIcon";
 import { MoneyCard } from "../MoneyCard/MoneyCard";
 import { IncomeIcon } from "../../../icons/IncomeIcon";
 import { DollarIcon } from "../../../icons/DollarIcon";
-import { useQueryGetBalance } from "@/hooks/useBalance";
+import { useQueryGetBalance } from "@/hooks/useQueryBalance";
 
 export function MoneyWrapper() {
     const { data, isLoading, error } = useQueryGetBalance();

@@ -5,13 +5,9 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export interface IBalance {
-    id: string;
-    emailOwner: string;
     income: number;
     expense: number;
-    balance: number;
-    createdAt: string;
-    updatedAt: string;
+    balance: number;  
 }
 
 // Todo trocar a URL para .env
