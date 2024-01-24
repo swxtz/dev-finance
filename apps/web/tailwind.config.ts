@@ -32,6 +32,13 @@ module.exports = {
                     facebookHover: "#166FE5",
                 },
 
+                ui: {
+                    text: "#E0E0EC",
+                    background: "#0A0A0A",
+                    primary: "#083a1a",
+                    secondary: "#4b4758",
+                    accent: "#9f899f",
+                },
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -87,8 +94,5 @@ module.exports = {
             },
         },
     },
-    plugins: [
-        require("tailwindcss-animate"), 
-        require("tailwind-scrollbar")
-    ],
+    plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 };
