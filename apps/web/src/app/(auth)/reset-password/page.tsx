@@ -11,6 +11,9 @@ export default function ResetPassword() {
             <div>
                 <h2 className="text-2xl text-gray-200 text-center font-medium md:text-3xl">Redefina sua senha</h2>
             </div>
+            <div className="">
+                
+            </div>
         </main>
     );
 }
