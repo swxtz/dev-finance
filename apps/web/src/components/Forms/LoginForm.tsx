@@ -107,6 +107,12 @@ export function LoginForm() {
                 >
                     Não possui uma conta? Clique aqui
                 </Link>
+                <Link 
+                    href="/reset-password"
+                    className="text-center text-gray-400 underline text-sm mt-1 transition-colors hover:text-gray-300"
+                >
+                    Esqueceu sua senha?
+                </Link>
             </div>
         </form>
     );
