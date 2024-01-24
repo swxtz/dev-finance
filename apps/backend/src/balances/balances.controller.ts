@@ -19,4 +19,11 @@ export class BalancesController {
         const token = this.jwtUtils.getToken(jwt);
         return await this.balancesService.getBalances(token);
     }
+
+    @Get("full-data")
+    @UseGuards(AuthGuard)
+    async getBalanceFullData(@Headers("Authorization") jwt: any) {
+        const token = this.jwtUtils.getToken(jwt);
+        return await this.balancesService.getBalancesFullData(token);
+    }
 }
