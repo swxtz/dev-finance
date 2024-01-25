@@ -1,13 +1,18 @@
-import { LogoIcons } from "@/icons/LogoIcons";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import nextAuthOptions from "../api/auth/[...nextauth]/provider";
+import { Inter } from "next/font/google";
+import { AuthNavbar } from "@/components/Auth/AuthNavbar";
 
 interface AuthLayoutProps {
     children: ReactNode;
 }
+
+const inter = Inter({
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+    subsets: ["latin"],
+});
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
     const session = await getServerSession(nextAuthOptions);
@@ -17,13 +22,9 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
     }
 
     return (
-        <div className="min-h-screen scrollbar scrollbar-thumb-neutral-900 scrollbar-track-neutral-800">
-            <div className="py-16 flex items-center justify-center">
-                <Link href="/">
-                    <LogoIcons />
-                </Link>
-            </div>
-            {children}
+        <div className="container">
+            <AuthNavbar />
+            <main className={inter.className}>{children}</main>
         </div>
     );
 }
