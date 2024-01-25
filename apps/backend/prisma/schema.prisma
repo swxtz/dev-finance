@@ -16,13 +16,14 @@ model User {
     balanceId String?  @unique @map("balance_id")
     balance   Balance? @relation(fields: [balanceId], references: [id])
 
-    email        String  @unique
+    email    String             @unique
+    verified VerificationEmails @relation(fields: [email], references: [emailToSend])
+
     firstName    String  @map("first_name")
     lastName     String  @map("last_name")
     passwordHash String  @map("password_hash")
     avatarUrl    String? @map("avatar_url")
     premium      Boolean @default(false)
-    salts        Int     @default(0)
 
     userType UserType[] @default([USER]) @map("user_type")
 
@@ -37,6 +38,18 @@ enum UserType {
     ADMIN
     USER
     BETA_USER
+}
+
+model VerificationEmails {
+    id          String   @id @default(cuid())
+    emailToSend String   @unique @map("email_to_send")
+    token       String   @unique
+    expires     DateTime
+    verified    Boolean  @default(false)
+    verifiedAt  DateTime @map("verified_at")
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    User        User?
 }
 
 model Balance {
@@ -57,7 +70,6 @@ model Balance {
 model Transaction {
     id      String @id @default(uuid())
     ownerId String @map("owner_id")
-    owner   User?  @relation(fields: [ownerId], references: [id])
 
     name        String
     amount      Float
@@ -67,7 +79,9 @@ model Transaction {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    type TransactionType @map("transaction_type")
+    type   TransactionType @map("transaction_type")
+    User   User?           @relation(fields: [userId], references: [id])
+    userId String?
 
     @@map("transactions")
 }
