@@ -8,7 +8,7 @@ export function AuthNavbar() {
     const router = useRouter();
 
     return (
-        <nav className="flex justify-between mt-8 mx-16">
+        <nav className="flex justify-between items-center mt-8 pb-8 mx-16 border-b-[1px] border-[#606060]">
             <div className="">
                 <button
                     onClick={() => router.back()}
