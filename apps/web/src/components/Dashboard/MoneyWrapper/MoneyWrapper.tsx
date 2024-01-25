@@ -6,6 +6,7 @@ import { MoneyCard } from "../MoneyCard/MoneyCard";
 import { IncomeIcon } from "../../../icons/IncomeIcon";
 import { DollarIcon } from "../../../icons/DollarIcon";
 import { useQueryGetBalance } from "@/hooks/useQueryBalance";
+//import { MoneyWrapperSkeleton } from "../MoneyWrapperSkeleton";
 
 export function MoneyWrapper() {
     const { data, isLoading, error } = useQueryGetBalance();

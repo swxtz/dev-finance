@@ -1,34 +1,23 @@
-import nextAuthOptions from "@/app/api/auth/[...nextauth]/provider";
-import { apiUrl } from "@/utils/api";
-import { getServerSession } from "next-auth";
+"use client";
+import { useQueryGetTransactionsWithLimit } from "@/hooks/useQueryTransaction";
 import { DataTable } from "../DataTable";
 import { columns } from "../DataTable/columns";
 
-export interface ITransactions {
-    amount: number;
-    description: string;
-    date: string;
-}
+export function Transactions() {
+    const { data, isLoading } = useQueryGetTransactionsWithLimit(1);
 
-async function getTransactions(): Promise<ITransactions[]> {
-    const token = await getServerSession(nextAuthOptions);
+    if (isLoading) {
+        return <div>Carregando...</div>;
+    }
 
-    const response = await fetch(`${apiUrl}/transactions`, {
-        headers: {
-            Authorization: `Bearer ${token?.token}`,
-        },
-    });
+    if(!data) {
+        return <div>Falso...</div>;
+    }
 
-    const transactions = await response.json();
-    return transactions;
-}
-
-export async function Transactions() {
-    const transactions = await getTransactions();
     return (
         <div>
             <h1>Transactions</h1>
-            <DataTable columns={columns} data={transactions} />
+            <DataTable columns={columns} data={data!} />
         </div>
     );
 }
