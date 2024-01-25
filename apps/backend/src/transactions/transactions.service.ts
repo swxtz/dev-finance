@@ -36,6 +36,11 @@ export class TransactionsService {
             where: { ownerId: token.sub },
             take: Number(limits),
             orderBy: { date: "desc" },
+            select: {
+                description: true,
+                amount: true,
+                date: true,
+            },
         });
 
         return transactions;
