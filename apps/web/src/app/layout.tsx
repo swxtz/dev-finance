@@ -13,12 +13,10 @@ import { ReactQueryProvider } from "@/providers/react-query";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-export const roboto = Roboto({
+const roboto = Roboto({
     weight: ["400", "500", "700"],
     subsets: ["latin"],
 });
-
-
 
 export const metadata: Metadata = {
     title: "Dev.Finance",
