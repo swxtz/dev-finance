@@ -22,6 +22,25 @@ export class TransactionsService {
         return transaction;
     }
 
+    async findAllWithLimits(token: any, limits: number) {
+        const verifyUser = await this.prisma.user.findUnique({
+            where: { id: token.sub },
+            select: { id: true },
+        });
+
+        if (!verifyUser) {
+            throw new HttpException("Unauthorized", 401);
+        }
+
+        const transactions = await this.prisma.transaction.findMany({
+            where: { ownerId: token.sub },
+            take: Number(limits),
+            orderBy: { date: "desc" },
+        });
+
+        return transactions;
+    }
+
     async findAll(token: any) {
         const isAdmin = await this.prisma.user.findUnique({
             where: { id: token.sub },

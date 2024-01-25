@@ -9,6 +9,7 @@ import {
     UsePipes,
     UseGuards,
     Headers,
+    Query,
 } from "@nestjs/common";
 import { TransactionsService } from "./transactions.service";
 import { CreateTransactionDto } from "./dto/create-transaction.dto";
@@ -36,6 +37,17 @@ export class TransactionsController {
     ) {
         const token = this.jwtUtils.getToken(jwt);
         return this.transactionsService.create(createTransactionDto, token);
+    }
+
+    @Get("with-limits")
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth("jwt")
+    findAllWithLimits(
+        @Headers("Authorization") jwt: any,
+        @Query("limits") query: number,
+    ) {
+        const token = this.jwtUtils.getToken(jwt);
+        return this.transactionsService.findAllWithLimits(token, query);
     }
 
     @Get("all")
