@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormButton } from "../FormButton";
+import { useToast } from "@/components/ui/use-toast";
 
 const loginSchema = z.object({
     email: z.string().email("E-mail inválido"),
@@ -18,6 +19,8 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
+    const { toast } = useToast();
+
     const {
         register,
         handleSubmit,
@@ -27,8 +30,6 @@ export function LoginForm() {
     const router = useRouter();
 
     async function handleLogin(data: LoginSchema) {
-        console.log(data);
-
         setIsLoading(true);
 
         const result = await signIn("credentials", {
@@ -38,7 +39,14 @@ export function LoginForm() {
         });
 
         if (result?.error) {
-            alert("Credenciais invalidas");
+            if (result.error) {
+                console.error(result.error);
+            }
+            toast({
+                title: "Credenciais inválidas",
+                description: "E-mail ou senha incorretos",
+                variant: "destructive"
+            });
             setIsLoading(false);
             return;
         }
@@ -48,7 +56,7 @@ export function LoginForm() {
     return (
         <form className="flex flex-col" onSubmit={handleSubmit(handleLogin)}>
             <div className="flex flex-col gap-4 mx-auto">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 mx-auto">
                     <div className="flex flex-col gap-2">
                         <label
                             htmlFor="email"

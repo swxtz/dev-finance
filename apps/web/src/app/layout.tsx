@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { ReactQueryProvider } from "@/providers/react-query";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -60,6 +61,7 @@ export default function RootLayout({
                                 hideProgressBar={false}
                                 theme="dark"
                             />
+                            <Toaster />
                             {/* <Footer /> */}
                         </ThemeProvider>
                     </ReactQueryProvider>
