@@ -12,16 +12,21 @@ import {
     Text,
 } from "@react-email/components";
 
-interface VerifyUserProps {
+interface VerifyAccountProps {
     name: string;
     inviteLink: string;
+    code: string;
 }
 
 const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : "";
 
-export default function VerifyUser({ name, inviteLink }: VerifyUserProps) {
+export default function VerifyAccount({
+    name,
+    inviteLink,
+    code,
+}: VerifyAccountProps) {
     const year = new Date().getFullYear();
 
     return (
@@ -62,7 +67,7 @@ export default function VerifyUser({ name, inviteLink }: VerifyUserProps) {
 
                         <Text className="mt-[48px] text-center uppercase tracking-[.30em]">
                             <strong className="py-4 px-8 text-[28px] border border-solid border-[#eaeaea]">
-                                abcdef
+                                {code}
                             </strong>
                         </Text>
 

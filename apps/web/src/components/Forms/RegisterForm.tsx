@@ -13,6 +13,7 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ValidationErrorMessage } from "../ValidationErrorMessege/ValidationErrorMessage";
 import { IRegisterUser, useMutationPostUser } from "@/hooks/useQueryRegister";
+import { useToast } from "../ui/use-toast";
 
 const createUserFormSchema = z
     .object({
@@ -45,6 +46,9 @@ const createUserFormSchema = z
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
 export function RegisterForm() {
+    const { toast } = useToast();
+
+
     const {
         register,
         handleSubmit,
@@ -53,10 +57,17 @@ export function RegisterForm() {
         resolver: zodResolver(createUserFormSchema),
     });
 
-    const { mutate } = useMutationPostUser();
+    const { mutate, isSuccess } = useMutationPostUser();
 
     async function createUser(data: IRegisterUser) {
         mutate(data);
+
+        if (isSuccess) {
+            toast({
+                title: "Conta criada com sucesso",
+                description: "Verifique seu e-mail para ativar antes de fazer login",
+            });
+        }
         
     }
 
