@@ -2,6 +2,7 @@ import { PrismaService } from "@/prisma/prisma.service";
 import { HttpException, Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user-dtos";
 import * as argon from "argon2";
+import { generateCode } from "@/utils/utils.";
 
 @Injectable()
 export class UsersService {
@@ -19,19 +20,29 @@ export class UsersService {
         }
 
         try {
+            const hour = new Date();
+
             const user = await this.prisma.user.create({
                 data: {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     email: data.email,
                     passwordHash: await argon.hash(data.password),
-                    salts: 0,
+
                     balance: {
                         create: {
                             emailOwner: data.email,
                             income: 0,
                             expense: 0,
                             balance: 0,
+                        },
+                    },
+                    verified: {
+                        create: {
+                            emailToSend: data.email,
+                            token: generateCode(),
+                            expires: new Date(hour.getTime() + 15 * 60000),
+                            verifiedAt: null,
                         },
                     },
                 },

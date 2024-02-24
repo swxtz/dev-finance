@@ -19,6 +19,7 @@ export class AuthService {
             select: {
                 id: true,
                 email: true,
+                verified: true,
                 passwordHash: true,
             },
         });
@@ -27,6 +28,13 @@ export class AuthService {
             throw new HttpException(
                 "Email ou Senha invalidas",
                 HttpStatus.BAD_REQUEST,
+            );
+        }
+
+        if (!verifyUser.verified === false) {
+            throw new HttpException(
+                "Email não verificado, verifique seu email para continuar",
+                HttpStatus.UNAUTHORIZED,
             );
         }
 
