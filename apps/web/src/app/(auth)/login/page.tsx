@@ -4,7 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Dev.Finance | Login",
-    description: "Crie sua conta, e organize suas finanças",
+    description: "Bem-vindo de volta! Faça login para acessar sua conta.",
 };
 
 

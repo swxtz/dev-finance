@@ -198,12 +198,12 @@ export function RegisterForm() {
                 {loading ? (<Loader2 className="animate-spin mx-auto" />) : "Criar conta" }
             </button> */}
 
-            {!loading ? (
+            {loading ? (
                 <FormButton>
                     <Loader2 className="animate-spin mx-auto" />
                 </FormButton>
             ) : (
-                <FormButton>Entrar</FormButton>
+                <FormButton>Criar conta</FormButton>
             )}
         </form>
     );

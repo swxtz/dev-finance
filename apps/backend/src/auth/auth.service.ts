@@ -31,7 +31,7 @@ export class AuthService {
             );
         }
 
-        if (!verifyUser.verified === false) {
+        if (verifyUser.verified.verified === false) {
             throw new HttpException(
                 "Email não verificado, verifique seu email para continuar",
                 HttpStatus.UNAUTHORIZED,
