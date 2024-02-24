@@ -3,6 +3,12 @@ import { useQueryGetTransactionsWithLimit } from "@/hooks/useQueryTransaction";
 import { DataTable } from "../DataTable";
 import { columns } from "../DataTable/columns";
 
+export interface ITransactions {
+    amount: number;
+    description: string;
+    date: string;
+}
+
 export function Transactions() {
     const { data, isLoading } = useQueryGetTransactionsWithLimit(1);
 
