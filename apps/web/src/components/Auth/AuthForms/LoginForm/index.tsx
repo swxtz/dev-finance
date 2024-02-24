@@ -105,7 +105,7 @@ export function LoginForm() {
                 <div className="mx-auto mt-4">
                     {isLoading ? (
                         <FormButton>
-                            <Loader2 className="animate-spin" />
+                            <Loader2 className="animate-spin mx-auto" />
                         </FormButton>
                     ) : (
                         <FormButton>Entrar</FormButton>

@@ -6,7 +6,7 @@ interface FormButtonProps {
 
 export function FormButton({ children }: FormButtonProps) {
     return (
-        <button className="py-4 px-32 bg-emerald-500 rounded-[8px] text-grey-200 font-semibold text-lg transition-colors hover:bg-emerald-600">
+        <button className="mt-12 bg-green-500 rounded-lg w-96 text-gray-200 py-3 mx-auto font-semibold text-lg hover:bg-sky-600 transition-all duration-300 ease-in-out">
             {children}
         </button>
     );

@@ -8,6 +8,7 @@ import { ValidationErrorMessage } from "@/components/ValidationErrorMessege/Vali
 import { useMutationPostUser } from "@/hooks/mutations/post-user";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { FormButton } from "../FormButton";
 
 export function RegisterForm() {
     const { mutateAsync } = useMutationPostUser();
@@ -56,8 +57,11 @@ export function RegisterForm() {
         });
     }
     return (
-        <form className="flex flex-col" onSubmit={handleSubmit(createAccount)}>
-            <div className="flex flex-col gap-4 mx-auto">
+        <form
+            className="flex flex-col mx-auto"
+            onSubmit={handleSubmit(createAccount)}
+        >
+            <div className="flex flex-col gap-4 items-center">
                 {/* field name */}
                 <div className="flex flex-col gap-2">
                     <label
@@ -187,12 +191,20 @@ export function RegisterForm() {
                 </p>
             </div>
 
-            <button
+            {/* <button
                 type="submit"
                 className="mt-12 bg-green-500 rounded-lg w-96 text-gray-200 py-3 mx-auto font-semibold text-lg hover:bg-green-600 transition-all duration-300 ease-in-out"
             >
                 {loading ? (<Loader2 className="animate-spin mx-auto" />) : "Criar conta" }
-            </button>
+            </button> */}
+
+            {!loading ? (
+                <FormButton>
+                    <Loader2 className="animate-spin mx-auto" />
+                </FormButton>
+            ) : (
+                <FormButton>Entrar</FormButton>
+            )}
         </form>
     );
 }
