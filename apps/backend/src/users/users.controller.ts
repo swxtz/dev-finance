@@ -3,6 +3,7 @@ import {
     Controller,
     Get,
     Headers,
+    HttpCode,
     Post,
     UseGuards,
     UsePipes,
@@ -13,6 +14,7 @@ import { ZodValidationPipe } from "nestjs-zod";
 import { AuthGuard } from "@/auth/auth.guard";
 import { UtilsService } from "@/utils/utils.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { IVerifyAccount, VerifyAccountSchema } from "./dtos/verify-account";
 
 @Controller("users")
 @ApiTags("Users")
@@ -34,5 +36,12 @@ export class UsersController {
     async find(@Headers("Authorization") jwt: any) {
         const token = this.jwtUtils.getToken(jwt);
         return this.usersService.find(token);
+    }
+
+    @Post("verify-account")
+    @UsePipes(new ZodValidationPipe(VerifyAccountSchema))
+    @HttpCode(200)
+    async verifyAccount(@Body() body: IVerifyAccount) {
+        return this.usersService.verifyAccount(body);
     }
 }

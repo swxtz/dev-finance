@@ -1,23 +1,32 @@
 import { PrismaService } from "@/prisma/prisma.service";
-import { generateCode } from "@/utils/utils.";
 import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { Resend } from "resend";
+import { VerifyAccountEmail } from "./dtos/verify-account";
 
 @Injectable()
 export class EmailsService {
-    constructor(private prisma: PrismaService) {}
+    constructor(
+        private prisma: PrismaService,
+        private readonly configService: ConfigService,
+    ) {}
 
-    async sendAccountVerificationEmail() {
-        const resend = new Resend("re_hbcaSuzW_Dqac7r5zEt1ULVGshKG7VCwM");
+    async sendAccountVerificationEmail({
+        code,
+        link,
+        sendTo,
+        name,
+    }: VerifyAccountEmail) {
+        const resend = new Resend(
+            this.configService.getOrThrow("RESEND_API_KEY"),
+        );
 
-        const code = generateCode();
-        const name = "Gustavo";
-        const link = `http://localhost:3000/verify?code=${code}`;
+        const year = new Date().getFullYear();
 
-        const { data, error } = await resend.emails.send({
+        const { error } = await resend.emails.send({
             from: "Acme <onboarding@resend.dev>",
-            to: ["dev.gustavomendonca@protonmail.com"],
-            subject: "Verify your email address",
+            to: [sendTo],
+            subject: "Verifique sua conta!",
             html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
             <html class="bg-zinc-600" dir="ltr" lang="pt-br">
             
@@ -72,7 +81,7 @@ export class EmailsService {
                           <tbody>
                             <tr>
                               <td>
-                                <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:2rem;color:rgb(156,163,175);text-align:center">Todos os direitos reservados © dev.finance$ 2024.</p>
+                                <p style="font-size:16px;line-height:24px;margin:16px 0;margin-top:2rem;color:rgb(156,163,175);text-align:center">Todos os direitos reservados © dev.finance$ ${year}.</p>
                               </td>
                             </tr>
                           </tbody>
@@ -88,7 +97,6 @@ export class EmailsService {
         if (error) {
             return console.error({ error });
         }
-        console.log({ data });
         return { message: "Email enviado com sucesso" };
     }
 }

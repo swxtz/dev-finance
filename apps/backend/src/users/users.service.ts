@@ -3,10 +3,17 @@ import { HttpException, Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user-dtos";
 import * as argon from "argon2";
 import { generateCode } from "@/utils/utils.";
+import { EmailsService } from "@/emails/emails.service";
+import { ConfigService } from "@nestjs/config";
+import { IVerifyAccount } from "./dtos/verify-account";
 
 @Injectable()
 export class UsersService {
-    constructor(private prisma: PrismaService) {}
+    constructor(
+        private prisma: PrismaService,
+        private emailsService: EmailsService,
+        private readonly configService: ConfigService,
+    ) {}
 
     async create(data: CreateUserDto) {
         const verifyUser = await this.prisma.user.findUnique({
@@ -51,7 +58,19 @@ export class UsersService {
                     firstName: true,
                     lastName: true,
                     email: true,
+                    verified: {
+                        select: {
+                            token: true,
+                        },
+                    },
                 },
+            });
+
+            await this.emailsService.sendAccountVerificationEmail({
+                code: user.verified.token,
+                link: this.configService.getOrThrow("VERIFY_CALLBACK_URL"),
+                sendTo: user.email,
+                name: user.firstName,
             });
 
             return { message: "Usuario criado com sucesso", user };
@@ -83,6 +102,51 @@ export class UsersService {
         } catch (err) {
             console.log(err);
             throw new HttpException(err, 500);
+        }
+    }
+
+    async verifyAccount(data: IVerifyAccount) {
+        try {
+            const user = await this.prisma.user.findUnique({
+                where: { email: data.email },
+                select: {
+                    verified: {
+                        select: {
+                            token: true,
+                            verified: true,
+                        },
+                    },
+                },
+            });
+
+            if (!user) {
+                throw new HttpException("Usuario não encontrado", 404);
+            }
+
+            if (user.verified.verified) {
+                throw new HttpException("Usuario já verificado", 400);
+            }
+
+            if (user.verified.token !== data.token) {
+                throw new HttpException("Token invalido", 400);
+            }
+
+            await this.prisma.user.update({
+                where: { email: data.email },
+                data: {
+                    verified: {
+                        update: {
+                            verified: true,
+                            verifiedAt: new Date(),
+                        },
+                    },
+                },
+            });
+
+            return { message: "Usuario verificado com sucesso" };
+        } catch (err) {
+            console.log(err);
+            return err;
         }
     }
 }
