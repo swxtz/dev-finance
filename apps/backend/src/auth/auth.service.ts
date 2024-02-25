@@ -19,7 +19,7 @@ export class AuthService {
             select: {
                 id: true,
                 email: true,
-                verified: true,
+                emailConfirmed: true,
                 passwordHash: true,
             },
         });
@@ -31,7 +31,7 @@ export class AuthService {
             );
         }
 
-        if (verifyUser.verified.verified === false) {
+        if (verifyUser.emailConfirmed === false) {
             throw new HttpException(
                 "Email não verificado, verifique seu email para continuar",
                 HttpStatus.UNAUTHORIZED,

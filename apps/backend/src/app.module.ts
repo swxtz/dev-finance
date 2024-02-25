@@ -8,6 +8,7 @@ import { BalancesModule } from "./balances/balances.module";
 import { UploadsModule } from "./uploads/uploads.module";
 import { ConfigModule } from "@nestjs/config";
 import { EmailsModule } from "./emails/emails.module";
+import { EmailConfirmationModule } from "./email-confirmation/email-confirmation.module";
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { EmailsModule } from "./emails/emails.module";
         BalancesModule,
         UploadsModule,
         EmailsModule,
+        EmailConfirmationModule,
     ],
     controllers: [],
     providers: [],

@@ -16,22 +16,20 @@ model User {
     balanceId String?  @unique @map("balance_id")
     balance   Balance? @relation(fields: [balanceId], references: [id])
 
-    email    String             @unique
-    verified VerificationEmails @relation(fields: [verificationEmailsId], references: [id])
+    email          String  @unique
+    emailConfirmed Boolean @default(false) @map("email_confirmed")
 
     firstName    String  @map("first_name")
     lastName     String  @map("last_name")
     passwordHash String  @map("password_hash")
     avatarUrl    String? @map("avatar_url")
     premium      Boolean @default(false)
-    salts        Int     @default(0)
 
     userType UserType[] @default([USER]) @map("user_type")
 
-    createdAt            DateTime      @default(now())
-    updatedAt            DateTime      @updatedAt
-    Transactions         Transaction[]
-    verificationEmailsId String        @unique
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+    Transactions Transaction[]
 
     @@map("users")
 }
@@ -78,16 +76,4 @@ model Transaction {
 enum TransactionType {
     INCOME
     EXPENSE
-}
-
-model VerificationEmails {
-    id          String    @id @default(cuid())
-    emailToSend String    @unique @map("email_to_send")
-    token       String    @unique
-    expires     DateTime
-    verified    Boolean   @default(false)
-    verifiedAt  DateTime? @map("verified_at")
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    User        User?
 }

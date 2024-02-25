@@ -2,10 +2,10 @@ import { PrismaService } from "@/prisma/prisma.service";
 import { HttpException, Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dtos/create-user-dtos";
 import * as argon from "argon2";
-import { generateCode } from "@/utils/utils.";
 import { EmailsService } from "@/emails/emails.service";
 import { ConfigService } from "@nestjs/config";
 import { IVerifyAccount } from "./dtos/verify-account";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class UsersService {
@@ -13,6 +13,7 @@ export class UsersService {
         private prisma: PrismaService,
         private emailsService: EmailsService,
         private readonly configService: ConfigService,
+        private readonly jwtService: JwtService,
     ) {}
 
     async create(data: CreateUserDto) {
@@ -27,8 +28,6 @@ export class UsersService {
         }
 
         try {
-            const hour = new Date();
-
             const user = await this.prisma.user.create({
                 data: {
                     firstName: data.firstName,
@@ -44,31 +43,24 @@ export class UsersService {
                             balance: 0,
                         },
                     },
-                    verified: {
-                        create: {
-                            emailToSend: data.email,
-                            token: generateCode(),
-                            expires: new Date(hour.getTime() + 15 * 60000),
-                            verifiedAt: null,
-                        },
-                    },
                 },
                 select: {
                     id: true,
                     firstName: true,
                     lastName: true,
                     email: true,
-                    verified: {
-                        select: {
-                            token: true,
-                        },
-                    },
                 },
             });
 
-            const linkCallback =
-                this.configService.getOrThrow("VERIFY_CALLBACK_URL") +
-                `?token=${user.verified.token}&email=${user.email}`;
+            const token = this.jwtService.sign(
+                { sub: user.id, email: user.email },
+                {
+                    expiresIn: 60 * 30,
+                    secret: this.configService.get("JWT_SECRET"),
+                },
+            );
+
+            const linkCallback = `${this.configService.get("CLIENT_URL")}/confirm-email?token=${token}`;
 
             // await this.emailsService.sendAccountVerificationEmail({
             //     code: user.verified.token,
