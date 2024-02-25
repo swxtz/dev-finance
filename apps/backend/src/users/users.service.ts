@@ -66,12 +66,18 @@ export class UsersService {
                 },
             });
 
-            await this.emailsService.sendAccountVerificationEmail({
-                code: user.verified.token,
-                link: this.configService.getOrThrow("VERIFY_CALLBACK_URL"),
-                sendTo: user.email,
-                name: user.firstName,
-            });
+            const linkCallback =
+                this.configService.getOrThrow("VERIFY_CALLBACK_URL") +
+                `?token=${user.verified.token}&email=${user.email}`;
+
+            // await this.emailsService.sendAccountVerificationEmail({
+            //     code: user.verified.token,
+            //     link: linkCallback,
+            //     sendTo: user.email,
+            //     name: user.firstName,
+            // });
+
+            console.log(linkCallback);
 
             return { message: "Usuario criado com sucesso", user };
         } catch (err) {
