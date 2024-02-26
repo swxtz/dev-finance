@@ -40,7 +40,7 @@ export function LoginForm() {
 
         if (result?.error) {
             if (result.error) {
-                console.error(result.error);
+                console.log(result.error);
             }
 
             if(result.status === 401) {

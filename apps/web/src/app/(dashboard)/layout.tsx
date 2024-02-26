@@ -1,7 +1,6 @@
 import { getServerSession } from "next-auth";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { Header } from "@/components/Dashboard/Header/Header";
 import { Poppins } from "next/font/google";
 import nextAuthOptions from "../api/auth/[...nextauth]/provider";
@@ -25,9 +24,7 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
     return (
         <div className={`h-screen ${poppins.className}`}>
             <div className="mt-12">
-                <Link href="/dashboard">
-                    <Header />
-                </Link>
+                <Header />
             </div>
             {children}
         </div>
