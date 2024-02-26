@@ -25,12 +25,12 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-col gap-8 mt-20 w-[340px] mx-auto md:mt-16 md:flex-row md:w-[500px]">
-                    <HomepageButtons title="Comece agora" href="/register" />
+                    <HomepageButtons title="Comece agora" href="/register" className="hover:bg-teal-900 transition-all duration-300 ease-in-out" />
 
                     <HomepageButtons
                         title="Entre com sua conta"
                         href="/login"
-                        className="bg-slate-800"
+                        className="bg-zinc-500 hover:bg-zinc-600 transition-all duration-300 ease-in-out"
                         icon={<LoginIcon className="ml-2" />}
                     />
                 </div>

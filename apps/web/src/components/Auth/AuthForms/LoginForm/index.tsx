@@ -10,8 +10,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormButton } from "../FormButton";
 import { useToast } from "@/components/ui/use-toast";
-import { api } from "@/lib/axios";
-import { ApiError } from "@/types/api-errors";
 
 const loginSchema = z.object({
     email: z.string().email("E-mail inválido"),
@@ -33,26 +31,6 @@ export function LoginForm() {
 
     async function handleLogin(data: LoginSchema) {
         setIsLoading(true);
-        const response = await api
-            .post("/auth", data)
-            .catch((error: ApiError) => {
-                toast({
-                    variant: "destructive",
-                    title: "E-mail não verificado",
-                    description: error.response.data.message,
-                });
-            });
-
-        if(response?.status !== 200) {
-
-            setIsLoading(false);
-            toast({
-                title: "Ops...",
-                description: "Algo deu errado, tente novamente mais tarde",
-                variant: "destructive",
-            });
-            return;
-        }
 
         const result = await signIn("credentials", {
             redirect: false,
@@ -63,6 +41,16 @@ export function LoginForm() {
         if (result?.error) {
             if (result.error) {
                 console.error(result.error);
+            }
+
+            if(result.status === 401) {
+                toast({
+                    title: "E-mail não verificado",
+                    description: "Verifique seu e-mail para continuar",
+                    variant: "destructive",
+                });
+                setIsLoading(false);
+                return;
             }
             toast({
                 title: "Credenciais inválidas",
@@ -126,11 +114,11 @@ export function LoginForm() {
                 </div>
                 <div className="mx-auto mt-4">
                     {isLoading ? (
-                        <FormButton>
+                        <FormButton type="submit">
                             <Loader2 className="animate-spin mx-auto" />
                         </FormButton>
                     ) : (
-                        <FormButton>Entrar</FormButton>
+                        <FormButton type="submit">Entrar</FormButton>
                     )}
                 </div>
             </div>

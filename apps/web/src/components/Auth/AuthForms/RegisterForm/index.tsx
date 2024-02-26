@@ -199,11 +199,11 @@ export function RegisterForm() {
             </button> */}
 
             {loading ? (
-                <FormButton>
+                <FormButton type="submit">
                     <Loader2 className="animate-spin mx-auto" />
                 </FormButton>
             ) : (
-                <FormButton>Criar conta</FormButton>
+                <FormButton type="submit">Criar conta</FormButton>
             )}
         </form>
     );

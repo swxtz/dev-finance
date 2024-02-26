@@ -22,6 +22,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
     title: "Dev.Finance",
     description: "Gerencie suas finanças de forma simples e prática.",
+    metadataBase: new URL("https://dev-finance-pi-six.vercel.app/"),
 
     openGraph: {
         type: "website",
@@ -46,6 +47,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
+        // biome-ignore lint/a11y/useValidLang: <explanation>
         <html lang="pt-br">
             <body
                 className={`${roboto.className} min-h-screen scrollbar scrollbar-thumb-neutral-900 scrollbar-track-neutral-800`}
