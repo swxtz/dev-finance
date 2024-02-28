@@ -11,18 +11,16 @@ export class EmailConfirmationService {
         private readonly jwtService: JwtService,
         private readonly configService: ConfigService,
     ) {}
-    async confirmEmail(data: { token: string }) {
+    async confirmEmail(token: string) {
         try {
             const payload: IEmailConfirmaionPayload | null =
-                await this.jwtService.verifyAsync(data.token, {
+                await this.jwtService.verifyAsync(token, {
                     secret: this.configService.get("JWT_SECRET"),
                 });
 
             if (!payload) {
                 throw new Error("Invalid token");
             }
-
-            console.log(payload);
 
             const user = await this.prisma.user.findUnique({
                 where: {

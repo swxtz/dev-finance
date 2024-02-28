@@ -89,6 +89,7 @@ export class UsersService {
                     firstName: true,
                     lastName: true,
                     email: true,
+                    avatarUrl: true,
                 },
             });
 

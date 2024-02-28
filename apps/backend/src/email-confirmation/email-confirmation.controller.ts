@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UsePipes } from "@nestjs/common";
+import { Body, Controller, Post, UsePipes, Get, Param } from "@nestjs/common";
 import { EmailConfirmationService } from "./email-confirmation.service";
 import { ConfirmEmailSchema } from "./schemas/confirm-email";
 import { ZodValidationPipe } from "nestjs-zod";
@@ -11,9 +11,8 @@ export class EmailConfirmationController {
         private jwtUtils: UtilsService,
     ) {}
 
-    @Post("confirm")
-    @UsePipes(new ZodValidationPipe(ConfirmEmailSchema))
-    async confirmEmail(@Body() data: ConfirmEmailSchema) {
-        return this.emailConfirmationService.confirmEmail(data);
+    @Get("confirm/:token")
+    async confirmEmail(@Param("token") token) {
+        return this.emailConfirmationService.confirmEmail(token);
     }
 }
