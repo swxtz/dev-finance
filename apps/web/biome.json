@@ -1,0 +1,19 @@
+{
+    "$schema": "https://biomejs.dev/schemas/1.6.0/schema.json",
+    "extends": ["../../biome.json"],
+    "linter": {
+        "rules": {
+            "recommended": true,
+            "nursery": {
+                "noUnusedImports": {
+                    "level": "error"
+                }
+            },
+            "correctness": {
+                "noUnusedVariables": {
+                    "level": "warn"
+                }
+            }
+        }
+    }
+}

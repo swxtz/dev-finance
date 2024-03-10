@@ -34,5 +34,6 @@ export function useQueryGetUser() {
     return useQuery({
         queryKey: ["get-user", "info"],
         queryFn: () => getUser(),
+        refetchOnWindowFocus: false,
     });
 }

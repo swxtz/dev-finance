@@ -1,13 +1,21 @@
+"use client";
+
 import Image from "next/image";
 
 import Logo from "../../../assets/logo.svg";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { Avatar } from "../Avatar";
+import { signOut } from "next-auth/react";
 
 export function Header() {
+
+    function handleLogout() {
+        signOut();
+    }
+
     return (
-        <div className="flex justify-around items-center container mx-auto ">
+        <div className="flex justify-between items-center container mx-auto ">
             <Menu className="size-6 text-stone-100" />
             <Link href="/dashboard">
                 <div className="flex flex-row gap-2">
@@ -22,6 +30,7 @@ export function Header() {
                     </span>
                 </div>
             </Link>
+            <button className="py-3 px-4 border border-red-500 " onClick={handleLogout}>Sair</button>
             <Avatar />
         </div>
     );
