@@ -10,8 +10,8 @@ const card = tv({
   base: "w-[352px] h-[136px] rounded-lg",
   variants: {
     color: {
-      zinc: "bg-zinc-700",
-      green: "bg-green-700",
+      zinc: "bg-zinc-500",
+      green: "bg-teal-800",
     },
   },
 
@@ -51,7 +51,7 @@ export function MoneyCard({
         <div className="max-w-[352px] truncate">
           <span className="text-3xl">
                         
-            <span className={cn("max-w-8 text-2xl", inter.className)}>
+            <span className={cn("max-w-8 text-2xl font-semibold", inter.className)}>
               {formattedValue}
             </span>
           </span>
