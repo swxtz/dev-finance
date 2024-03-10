@@ -1,7 +1,7 @@
 "use client";
 
 export function ResetPasswordForm() {
-    return (
-        <h1></h1>
-    );
+  return (
+    <h1></h1>
+  );
 }

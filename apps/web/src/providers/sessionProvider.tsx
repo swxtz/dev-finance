@@ -8,5 +8,5 @@ interface SessionProviderProps {
 }
 
 export default function NextAuthSessionProvider({ children }: SessionProviderProps) {
-    return <SessionProvider>{children}</SessionProvider>;
+  return <SessionProvider>{children}</SessionProvider>;
 }

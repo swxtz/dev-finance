@@ -12,21 +12,21 @@ export interface ITransactions {
 }
 
 async function getTransactions(limit: number): Promise<ITransactions[]> {
-    const token = await getSession();
+  const token = await getSession();
 
-    const response = await axios.get(`http://localhost:3333/transactions/with-limits?limits=${limit}`, {
-        headers: {
-            Authorization: `Bearer ${token?.token}`,
-        },
-    });
+  const response = await axios.get(`http://localhost:3333/transactions/with-limits?limits=${limit}`, {
+    headers: {
+      Authorization: `Bearer ${token?.token}`,
+    },
+  });
 
     
-    return response.data;
+  return response.data;
 }
 
 export function useQueryGetTransactionsWithLimit(limit: number) {
-    return useQuery({
-        queryKey: ["transactions"],
-        queryFn: () => getTransactions(limit),
-    });
+  return useQuery({
+    queryKey: ["transactions"],
+    queryFn: () => getTransactions(limit),
+  });
 }

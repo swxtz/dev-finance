@@ -19,29 +19,29 @@ export interface IErrorRegisterUser extends Error {
 }
 
 async function registerUser({ email, firstName, lastName, password }: IRegisterUser) {
-    const response = await axios.post("http://localhost:3333/users", {
-        firstName,
-        lastName,
-        email,
-        password,
-    });
+  const response = await axios.post("http://localhost:3333/users", {
+    firstName,
+    lastName,
+    email,
+    password,
+  });
 
-    return response.data;
+  return response.data;
 }
 
 
 export function useMutationPostUser() {
-    return useMutation({
-        mutationKey: ["registerUser"],
-        mutationFn: (user: IRegisterUser) => registerUser(user),
-        onSuccess: () => {
-            toast.success("Conta criada com sucesso");
-        },
-        onError: (err: IErrorRegisterUser) => {
-            toast.error(err.response.data.message, {
-                autoClose: 5000,
-                hideProgressBar: false,
-            });
-        },
-    });
+  return useMutation({
+    mutationKey: ["registerUser"],
+    mutationFn: (user: IRegisterUser) => registerUser(user),
+    onSuccess: () => {
+      toast.success("Conta criada com sucesso");
+    },
+    onError: (err: IErrorRegisterUser) => {
+      toast.error(err.response.data.message, {
+        autoClose: 5000,
+        hideProgressBar: false,
+      });
+    },
+  });
 }

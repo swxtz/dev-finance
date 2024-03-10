@@ -5,7 +5,7 @@ export interface ValidationErrorMessageProps {
 }
 
 export function ValidationErrorMessage({ children }: ValidationErrorMessageProps) {
-    return (
-        <span className="text-red-500 text-sm">{children}</span>
-    );
+  return (
+    <span className="text-red-500 text-sm">{children}</span>
+  );
 }

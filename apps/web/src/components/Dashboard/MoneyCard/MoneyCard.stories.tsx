@@ -4,14 +4,14 @@ import { IncomeIcon } from "../../../icons/IncomeIcon";
 import { ExpenseIcon } from "../../../icons/ExpenseIcon";
 
 export default {
-    title: "Dashboard/MoneyCard",
-    component: MoneyCard,
+  title: "Dashboard/MoneyCard",
+  component: MoneyCard,
 } as Meta;
 
 export const Default: StoryObj = {
-    render: () => <MoneyCard label="Entradas" icon={<IncomeIcon />} value={1740000} />
+  render: () => <MoneyCard label="Entradas" icon={<IncomeIcon />} value={1740000} />
 };
 
 export const Green: StoryObj = {
-    render: () => <MoneyCard color="green" label="Entradas" icon={<ExpenseIcon />} value={1740000} />
+  render: () => <MoneyCard color="green" label="Entradas" icon={<ExpenseIcon />} value={1740000} />
 };

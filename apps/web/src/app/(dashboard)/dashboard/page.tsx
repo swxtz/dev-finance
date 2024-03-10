@@ -6,7 +6,7 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-    title: "Dev.Finance | Dashboard",
+  title: "Dev.Finance | Dashboard",
 };
 
 
@@ -14,19 +14,19 @@ export const metadata: Metadata = {
 export default async function Dashboard() {
   
 
-    return (
-        <main className="mx-32">
-            <div className="mt-20">
-                <MoneyWrapper/>
-            </div>
+  return (
+    <main className="mx-32">
+      <div className="mt-20">
+        <MoneyWrapper/>
+      </div>
 
-            <div className="mt-16">
-                <NewTransactionModal />
-            </div>
+      <div className="mt-16">
+        <NewTransactionModal />
+      </div>
 
-            <div className="mt-8">
-                <Transactions />
-            </div>
-        </main>
-    );
+      <div className="mt-8">
+        <Transactions />
+      </div>
+    </main>
+  );
 }

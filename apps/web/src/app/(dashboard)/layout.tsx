@@ -6,8 +6,8 @@ import { Poppins } from "next/font/google";
 import nextAuthOptions from "../api/auth/[...nextauth]/provider";
 
 const poppins = Poppins({
-    weight: ["400", "500", "700"],
-    subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
 });
 
 interface DashboardLayoutProps {
@@ -15,18 +15,18 @@ interface DashboardLayoutProps {
 }
 
 export default async function DashboardLayout({ children }: DashboardLayoutProps) {
-    const session = await getServerSession(nextAuthOptions);
+  const session = await getServerSession(nextAuthOptions);
 
-    if (!session) {
-        redirect("/login");
-    }
+  if (!session) {
+    redirect("/login");
+  }
 
-    return (
-        <div className={`h-screen ${poppins.className}`}>
-            <div className="mt-12">
-                <Header />
-            </div>
-            {children}
-        </div>
-    );
+  return (
+    <div className={`h-screen ${poppins.className}`}>
+      <div className="mt-12">
+        <Header />
+      </div>
+      {children}
+    </div>
+  );
 }

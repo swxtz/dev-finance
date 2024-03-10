@@ -9,13 +9,13 @@ interface IGetUser {
 }
 
 async function getUser(data: IGetUser) {
-    const response = await api.post("/auth", data);
-    return response;
+  const response = await api.post("/auth", data);
+  return response;
 }
 
 export function useQueryVerifyUser(data: IGetUser) {
-    return useQuery({
-        queryKey: ["verify-user", data],
-        queryFn: () => getUser(data),
-    });
+  return useQuery({
+    queryKey: ["verify-user", data],
+    queryFn: () => getUser(data),
+  });
 }

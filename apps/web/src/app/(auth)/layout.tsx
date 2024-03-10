@@ -10,21 +10,21 @@ interface AuthLayoutProps {
 }
 
 const inter = Inter({
-    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-    subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
 });
 
 export default async function AuthLayout({ children }: AuthLayoutProps) {
-    const session = await getServerSession(nextAuthOptions);
+  const session = await getServerSession(nextAuthOptions);
 
-    if (session) {
-        redirect("/dashboard");
-    }
+  if (session) {
+    redirect("/dashboard");
+  }
 
-    return (
-        <div className="container">
-            <AuthNavbar />
-            <main className={inter.className}>{children}</main>
-        </div>
-    );
+  return (
+    <div className="container">
+      <AuthNavbar />
+      <main className={inter.className}>{children}</main>
+    </div>
+  );
 }

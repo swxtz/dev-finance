@@ -15,25 +15,25 @@ interface User {
   
 
 async function getUser(): Promise<User> {
-    const session = await getSession();
+  const session = await getSession();
 
-    if (!session) {
-        redirect("/login");
+  if (!session) {
+    redirect("/login");
+  }
+
+  const response = await api.get("/users", {
+    headers: {
+      Authorization: `Bearer ${session?.token}`
     }
+  });
 
-    const response = await api.get("/users", {
-        headers: {
-            Authorization: `Bearer ${session?.token}`
-        }
-    });
-
-    return response.data; 
+  return response.data; 
 }
 
 export function useQueryGetUser() {
-    return useQuery({
-        queryKey: ["get-user", "info"],
-        queryFn: () => getUser(),
-        refetchOnWindowFocus: false,
-    });
+  return useQuery({
+    queryKey: ["get-user", "info"],
+    queryFn: () => getUser(),
+    refetchOnWindowFocus: false,
+  });
 }

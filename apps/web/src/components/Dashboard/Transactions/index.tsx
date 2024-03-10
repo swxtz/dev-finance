@@ -10,20 +10,20 @@ export interface ITransactions {
 }
 
 export function Transactions() {
-    const { data, isLoading } = useQueryGetTransactionsWithLimit(1);
+  const { data, isLoading } = useQueryGetTransactionsWithLimit(1);
 
-    if (isLoading) {
-        return <div>Carregando...</div>;
-    }
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
 
-    if(!data) {
-        return <div>Falso...</div>;
-    }
+  if(!data) {
+    return <div>Falso...</div>;
+  }
 
-    return (
-        <div>
-            <h1>Transactions</h1>
-            <DataTable columns={columns} data={data!} />
-        </div>
-    );
+  return (
+    <div>
+      <h1>Transactions</h1>
+      <DataTable columns={columns} data={data!} />
+    </div>
+  );
 }

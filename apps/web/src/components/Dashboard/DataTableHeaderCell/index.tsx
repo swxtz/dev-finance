@@ -5,9 +5,9 @@ interface DataTableHeaderCellProps {
 }
 
 export function DataTableHeaderCell({ children }: DataTableHeaderCellProps) {
-    return (
-        <div className="text-center text-gray-200 text-base">
-            {children}
-        </div>
-    );
+  return (
+    <div className="text-center text-gray-200 text-base">
+      {children}
+    </div>
+  );
 }

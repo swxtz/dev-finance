@@ -7,16 +7,16 @@ interface AvatarImageProps {
 }
 
 export function AvatarImage({ avatarUrl }: AvatarImageProps) {
-    return (
-        <AvatarRadix.Root>
-            <AvatarRadix.Image
-                className="size-10 rounded-full"
-                src={avatarUrl}
-                alt="Foto de usuario"
-            />
-            <AvatarRadix.Fallback>
-                <User className="size-6" />
-            </AvatarRadix.Fallback>
-        </AvatarRadix.Root>
-    );
+  return (
+    <AvatarRadix.Root>
+      <AvatarRadix.Image
+        className="size-10 rounded-full"
+        src={avatarUrl}
+        alt="Foto de usuario"
+      />
+      <AvatarRadix.Fallback>
+        <User className="size-6" />
+      </AvatarRadix.Fallback>
+    </AvatarRadix.Root>
+  );
 }

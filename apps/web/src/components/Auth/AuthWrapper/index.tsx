@@ -5,9 +5,9 @@ interface AuthWrapperProps {
 }
 
 export function AuthWrapper({ children }: AuthWrapperProps) {
-    return (
-        <div className="">
-            {children}
-        </div>
-    );
+  return (
+    <div className="">
+      {children}
+    </div>
+  );
 }
