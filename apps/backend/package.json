@@ -51,6 +51,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.6.0",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.2.7",

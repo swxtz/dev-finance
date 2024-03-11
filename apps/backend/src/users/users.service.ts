@@ -60,7 +60,9 @@ export class UsersService {
                 },
             );
 
-            const linkCallback = `${this.configService.get("CLIENT_URL")}/confirm-email?token=${token}`;
+            const linkCallback = `${this.configService.get(
+                "CLIENT_URL",
+            )}/confirm-email?token=${token}`;
 
             // await this.emailsService.sendAccountVerificationEmail({
             //     code: user.verified.token,

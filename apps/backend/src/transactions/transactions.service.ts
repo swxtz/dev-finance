@@ -19,6 +19,47 @@ export class TransactionsService {
             },
         });
 
+        if (transaction.type === "INCOME") {
+            const user = await this.prisma.user.findUnique({
+                where: { id: token.sub },
+                select: { balance: true },
+            });
+
+            const newIncome = user.balance.income + transaction.amount;
+
+            await this.prisma.user.update({
+                where: { id: token.sub },
+                data: {
+                    balance: {
+                        update: {
+                            income: newIncome,
+                            balance: user.balance.balance + transaction.amount,
+                        },
+                    },
+                },
+            });
+        }
+
+        if (transaction.type === "EXPENSE") {
+            const user = await this.prisma.user.findUnique({
+                where: { id: token.sub },
+                select: { balance: true },
+            });
+
+            const newExpense = user.balance.expense + transaction.amount;
+
+            await this.prisma.user.update({
+                where: { id: token.sub },
+                data: {
+                    balance: {
+                        update: {
+                            expense: newExpense,
+                            balance: user.balance.balance - transaction.amount,
+                        },
+                    },
+                },
+            });
+        }
         return transaction;
     }
 
